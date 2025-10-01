@@ -47,5 +47,15 @@ public class SmokerHistogram {
 
         System.out.println("Smokers: " + smokerCount);
         System.out.println("Non-smokers: " + nonSmokerCount);
+
+        int maxCount = Math.max(smokerCount, nonSmokerCount);
+
+        for (int level = maxCount; level > 0; level--) {
+            System.out.printf("%-12s", (smokerCount >= level) ? "*" : " ");
+            System.out.printf("%-12s", (nonSmokerCount >= level) ? "*" : " ");
+            System.out.println();
+        }
+
+        System.out.printf("%-12s%-12s%n", "Smokers", "Non-smokers");
     }
 }
