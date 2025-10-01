@@ -39,6 +39,7 @@ public class BmiHistogram {
         } catch (IOException e) {
             System.err.println("Error reading file: " + e.getMessage());
             e.printStackTrace();
+            return;
         }
 
         double min = bmis.stream().min(Double::compare).orElse(0.0);
@@ -53,11 +54,27 @@ public class BmiHistogram {
             counts[bin]++;
         }
 
-        System.out.println("BMI histogram bin counts:");
+        int maxCount = 0;
+        for (int count : counts) {
+            if (count > maxCount) maxCount = count;
+        }
+
+        for (int level = maxCount; level > 0; level--) {
+            for (int count : counts) {
+                if (count >= level) {
+                    System.out.printf("%-10s", "*"); // wider column for full bin ranges
+                } else {
+                    System.out.printf("%-10s", " ");
+                }
+            }
+            System.out.println();
+        }
+
         for (int i = 0; i < numBins; i++) {
             double lower = min + i * binWidth;
             double upper = lower + binWidth;
-            System.out.printf("[%.1f - %.1f): %d%n", lower, upper, counts[i]);
+            System.out.printf("%-10s", String.format("[%.1f-%.1f]", lower, upper));
         }
+        System.out.println();
     }
 }
