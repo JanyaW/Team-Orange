@@ -7,11 +7,15 @@ import java.util.List;
 public class SmokerHistogram {
     public static void main(String[] args) {
         String filename = args.length > 0 ? args[0] : "insurance.csv";
+
         List<String> smokers = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String headerLine = br.readLine();
-            if (headerLine == null) return;
+            if (headerLine == null) {
+                System.err.println("File is empty: " + filename);
+                return;
+            }
 
             String[] headers = headerLine.split(",");
             int smokerIndex = -1;
@@ -29,12 +33,19 @@ public class SmokerHistogram {
                 smokers.add(parts[smokerIndex].trim());
             }
         } catch (IOException e) {
+            System.err.println("Error reading file: " + e.getMessage());
             e.printStackTrace();
+            return;
         }
 
-        System.out.println("First 10 smoker values:");
-        for (int i = 0; i < Math.min(10, smokers.size()); i++) {
-            System.out.println(smokers.get(i));
+        int smokerCount = 0;
+        int nonSmokerCount = 0;
+        for (String s : smokers) {
+            if (s.equalsIgnoreCase("yes")) smokerCount++;
+            else if (s.equalsIgnoreCase("no")) nonSmokerCount++;
         }
+
+        System.out.println("Smokers: " + smokerCount);
+        System.out.println("Non-smokers: " + nonSmokerCount);
     }
 }
