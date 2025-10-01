@@ -41,9 +41,23 @@ public class BmiHistogram {
             e.printStackTrace();
         }
 
-        System.out.println("First 10 BMI values:");
-        for (int i = 0; i < Math.min(10, bmis.size()); i++) {
-            System.out.println(bmis.get(i));
+        double min = bmis.stream().min(Double::compare).orElse(0.0);
+        double max = bmis.stream().max(Double::compare).orElse(0.0);
+        int numBins = 10;
+        double binWidth = (max - min) / numBins;
+
+        int[] counts = new int[numBins];
+        for (double bmi : bmis) {
+            int bin = (int) ((bmi - min) / binWidth);
+            if (bin == numBins) bin--; 
+            counts[bin]++;
+        }
+
+        System.out.println("BMI histogram bin counts:");
+        for (int i = 0; i < numBins; i++) {
+            double lower = min + i * binWidth;
+            double upper = lower + binWidth;
+            System.out.printf("[%.1f - %.1f): %d%n", lower, upper, counts[i]);
         }
     }
 }
