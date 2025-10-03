@@ -11,7 +11,7 @@ public class GetInfo {
 
         List<Double> bmis = new ArrayList<>();
         List<Double> ages = new ArrayList<>();
-        List<Double> bmis = new ArrayList<>();
+        // List<Double> bmis = new ArrayList<>();
         List<Double> children = new ArrayList<>();
         List<Double> charges = new ArrayList<>();
 
@@ -29,8 +29,9 @@ public class GetInfo {
                     bmiIndex = i;
                     break;
                 }
-            int ageIndex = -1, bmiIndex = -1, childrenIndex = -1, chargesIndex = -1;
-            for (int i = 0; i < headers.length; i++) {
+            int ageIndex = -1, childrenIndex = -1, chargesIndex = -1;
+            bmiIndex = -1;
+            for (i = 0; i < headers.length; i++) {
                 String col = headers[i].trim().toLowerCase();
                 if (col.equals("age")) ageIndex = i;
                 else if (col.equals("bmi")) bmiIndex = i;
