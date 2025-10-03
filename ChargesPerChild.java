@@ -2,7 +2,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ChargesPerChild {
     public static void main(String[] args) {
@@ -47,18 +49,23 @@ public class ChargesPerChild {
 
         System.out.printf("Read %d rows of children/charges data.%n", childrenList.size());
 
-        double totalCharges = 0.0;
-        int totalChildren = 0;
+        Map<Integer, List<Double>> chargesByChildren = new HashMap<>();
 
         for (int i = 0; i < childrenList.size(); i++) {
-            totalCharges += chargesList.get(i);
-            totalChildren += childrenList.get(i);
+            int numChildren = childrenList.get(i);
+            double charge = chargesList.get(i);
+            chargesByChildren.putIfAbsent(numChildren, new ArrayList<>());
+            chargesByChildren.get(numChildren).add(charge);
         }
 
-        double avgChargePerChild = totalChildren > 0 ? totalCharges / totalChildren : 0.0;
-
-        System.out.printf("Total charges: %.2f%n", totalCharges);
-        System.out.printf("Total children: %d%n", totalChildren);
-        System.out.printf("Average charge per child: %.2f%n", avgChargePerChild);
+        System.out.println("Children  AvgCharge  AvgChargePerChild");
+        for (Map.Entry<Integer, List<Double>> entry : chargesByChildren.entrySet()) {
+            int numChildren = entry.getKey();
+            List<Double> charges = entry.getValue();
+            double totalCharge = charges.stream().mapToDouble(Double::doubleValue).sum();
+            double avgChargePerChild = numChildren > 0 ? totalCharge / (numChildren * charges.size()) : 0.0;
+            double avgCharge = totalCharge / charges.size();
+            System.out.printf("%8d  %9.2f  %15.2f%n", numChildren, avgCharge, avgChargePerChild);
+        }
     }
 }
