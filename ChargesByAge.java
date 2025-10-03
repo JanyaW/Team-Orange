@@ -8,8 +8,8 @@ public class ChargesByAge {
     public static void main(String[] args) {
         String filename = args.length > 0 ? args[0] : "insurance.csv";
 
-        List<Double> chargesUnder20 = new ArrayList<>();
-        List<Double> chargesOver50 = new ArrayList<>();
+        List<Integer> ages = new ArrayList<>();
+        List<Double> charges = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String headerLine = br.readLine();
@@ -17,11 +17,9 @@ public class ChargesByAge {
                 System.err.println("File is empty: " + filename);
                 return;
             }
-            System.out.println("Header: " + headerLine);
 
             String[] headers = headerLine.split(",");
             int ageIndex = -1, chargesIndex = -1;
-
             for (int i = 0; i < headers.length; i++) {
                 String col = headers[i].trim().toLowerCase();
                 if (col.equals("age")) ageIndex = i;
@@ -32,16 +30,11 @@ public class ChargesByAge {
             while ((line = br.readLine()) != null) {
                 if (line.trim().isEmpty()) continue;
                 String[] parts = line.split(",");
-
                 try {
                     int age = Integer.parseInt(parts[ageIndex].trim());
                     double charge = Double.parseDouble(parts[chargesIndex].trim());
-
-                    if (age <= 20) {
-                        chargesUnder20.add(charge);
-                    } else if (age >= 50) {
-                        chargesOver50.add(charge);
-                    }
+                    ages.add(age);
+                    charges.add(charge);
                 } catch (Exception e) {
                     System.err.println("Skipping malformed line: " + line);
                 }
@@ -52,7 +45,20 @@ public class ChargesByAge {
             return;
         }
 
-        System.out.println("Count of charges for <=20: " + chargesUnder20.size());
-        System.out.println("Count of charges for >=50: " + chargesOver50.size());
+        List<Double> charges50Plus = new ArrayList<>();
+        List<Double> charges20OrLess = new ArrayList<>();
+
+        for (int i = 0; i < ages.size(); i++) {
+            int age = ages.get(i);
+            double charge = charges.get(i);
+            if (age >= 50) charges50Plus.add(charge);
+            else if (age <= 20) charges20OrLess.add(charge);
+        }
+
+        double avg50Plus = charges50Plus.stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
+        double avg20OrLess = charges20OrLess.stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
+
+        System.out.printf("Average charges 50+: %.2f%n", avg50Plus);
+        System.out.printf("Average charges 20-: %.2f%n", avg20OrLess);
     }
 }
