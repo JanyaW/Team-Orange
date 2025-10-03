@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class HelloWorld {
     public static void main(String[] args) {
@@ -133,6 +135,25 @@ public class HelloWorld {
         return records;
     };
     
+    // === Problem 5: Count Records by Number of Children ===
+    public static void countChildrenRecords(List<InsuranceRecord> records) {
+        Map<Integer, Integer> childrenCount = new TreeMap<>(); // TreeMap keeps keys sorted
+
+        for (InsuranceRecord record : records) {
+            int numChildren = record.children;
+            childrenCount.put(numChildren, childrenCount.getOrDefault(numChildren, 0) + 1);
+        }
+
+        System.out.println("=== Number of Records per Number of Children ===");
+        for (Map.Entry<Integer, Integer> entry : childrenCount.entrySet()) {
+            System.out.printf("Children: %d => %d record%s\n",
+                    entry.getKey(),
+                    entry.getValue(),
+                    entry.getValue() == 1 ? "" : "s");
+        }
+    }   
+    
+
 
 
     
