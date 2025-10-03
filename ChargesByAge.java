@@ -58,7 +58,10 @@ public class ChargesByAge {
         double avg50Plus = charges50Plus.stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
         double avg20OrLess = charges20OrLess.stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
 
-        System.out.printf("Average charges 50+: %.2f%n", avg50Plus);
-        System.out.printf("Average charges 20-: %.2f%n", avg20OrLess);
+        System.out.printf("Average charges (50+): %.2f%n", avg50Plus);
+        System.out.printf("Average charges (20-): %.2f%n", avg20OrLess);
+
+        boolean isDouble = avg50Plus >= 2 * avg20OrLess;
+        System.out.println("Do people 50+ average twice the charges as the average of people 20- ? " + isDouble);
     }
 }
