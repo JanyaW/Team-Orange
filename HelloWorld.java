@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class HelloWorld {
@@ -76,6 +77,38 @@ public class HelloWorld {
             System.out.printf("%-10s", String.format("[%.1f-%.1f]", lower, upper));
         }
         System.out.println();
+
+         // === Problem 3: Horizontal Histogram of Age ===
+        System.out.println("=== Horizontal Histogram of Age ===");
+
+        List<InsuranceRecord> allRecords = getFirstNRecords(filename, Integer.MAX_VALUE);
+
+        List<Integer> ages = new ArrayList<>();
+        for (InsuranceRecord r : allRecords) {
+            ages.add(r.age);
+        }
+
+        int minAge = Collections.min(ages);
+        int maxAge = Collections.max(ages);
+        int ageBins = 8;
+        int ageBinWidth = (int) Math.ceil((maxAge - minAge + 1) / (double) ageBins);
+
+        int[] ageCounts = new int[ageBins];
+        for (int age : ages) {
+            int binIndex = (age - minAge) / ageBinWidth;
+            if (binIndex >= ageBins) binIndex = ageBins - 1;
+            ageCounts[binIndex]++;
+        }
+
+        for (int i = 0; i < ageBins; i++) {
+            int binStart = minAge + i * ageBinWidth;
+            int binEnd = binStart + ageBinWidth - 1;
+            System.out.printf("%2d–%2d | ", binStart, binEnd);
+            for (int j = 0; j < ageCounts[i]; j++) {
+                System.out.print("*");
+            }
+            System.out.println(" (" + ageCounts[i] + ")");
+        }
     }    
     // === Problem 1: Get First N Records ===
     public static List<InsuranceRecord> getFirstNRecords(String filename, int N) {
@@ -100,6 +133,7 @@ public class HelloWorld {
         return records;
     };
     
+
 
     
 }
