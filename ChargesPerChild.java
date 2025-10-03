@@ -2,9 +2,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class ChargesPerChild {
     public static void main(String[] args) {
@@ -49,8 +49,7 @@ public class ChargesPerChild {
 
         System.out.printf("Read %d rows of children/charges data.%n", childrenList.size());
 
-        Map<Integer, List<Double>> chargesByChildren = new HashMap<>();
-
+        Map<Integer, List<Double>> chargesByChildren = new TreeMap<>();
         for (int i = 0; i < childrenList.size(); i++) {
             int numChildren = childrenList.get(i);
             double charge = chargesList.get(i);
@@ -59,13 +58,31 @@ public class ChargesPerChild {
         }
 
         System.out.println("Children  AvgCharge  AvgChargePerChild");
+
+        List<Double> avgPerChildList = new ArrayList<>();
+        List<Integer> childCounts = new ArrayList<>();
         for (Map.Entry<Integer, List<Double>> entry : chargesByChildren.entrySet()) {
             int numChildren = entry.getKey();
             List<Double> charges = entry.getValue();
             double totalCharge = charges.stream().mapToDouble(Double::doubleValue).sum();
-            double avgChargePerChild = numChildren > 0 ? totalCharge / (numChildren * charges.size()) : 0.0;
             double avgCharge = totalCharge / charges.size();
+            double avgChargePerChild = numChildren > 0 ? totalCharge / (numChildren * charges.size()) : 0.0;
             System.out.printf("%8d  %9.2f  %15.2f%n", numChildren, avgCharge, avgChargePerChild);
+
+            if (numChildren > 0) {
+                avgPerChildList.add(avgChargePerChild);
+                childCounts.add(numChildren);
+            }
         }
+
+        boolean strictlyDecreasing = true;
+        for (int i = 1; i < avgPerChildList.size(); i++) {
+            if (avgPerChildList.get(i) >= avgPerChildList.get(i - 1)) {
+                strictlyDecreasing = false;
+                break;
+            }
+        }
+
+        System.out.println("Do people with more children have lower charges per child? " + strictlyDecreasing);
     }
 }
