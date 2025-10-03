@@ -1,8 +1,8 @@
-import java.util.List;
-import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HelloWorld {
     public static void main(String[] args) {
@@ -77,4 +77,33 @@ public class HelloWorld {
         }
         System.out.println();
     }    
+    // === Problem 1: Get First N Records ===
+    public static List<InsuranceRecord> getFirstNRecords(String filename, int N) {
+        List<InsuranceRecord> records = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+            String header = br.readLine(); // Skip header
+            String line;
+            while ((line = br.readLine()) != null && records.size() < N) {
+                if (line.trim().isEmpty()) continue;
+                String[] parts = line.split(",");
+                if (parts.length != 7) continue;
+                try {
+                    InsuranceRecord record = new InsuranceRecord(parts);
+                    records.add(record);
+                } catch (Exception e) {
+                    System.err.println("Skipping malformed line: " + line);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading file: " + e.getMessage());
+        }
+        return records;
+    };
+    
+
+    
 }
+
+    
+    
+
