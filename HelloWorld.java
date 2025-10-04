@@ -117,6 +117,9 @@ public class HelloWorld {
         checkRegionFairness(allRecords);
         // Problem 9 : Compare Charge Ranges by BMI Groups
         compareChargeRangesByBMI(allRecords);
+        // === Problem 11: Smokers vs Non-Smokers Charges ===
+        analyzeSmokerCharges(allRecords);
+
 
 
 
@@ -229,7 +232,52 @@ public class HelloWorld {
         double max = Collections.max(charges);
         return max - min;
     }
-    
+    // === Problem 11: Analyze Charges for Smokers vs Non-Smokers ===
+    public static void analyzeSmokerCharges(List<InsuranceRecord> records) {
+        List<Double> smokerCharges = new ArrayList<>();
+        List<Double> nonSmokerCharges = new ArrayList<>();
+
+        for (InsuranceRecord record : records) {
+            if (record.smoker) {
+                smokerCharges.add(record.charges);
+            } else {
+                nonSmokerCharges.add(record.charges);
+            }
+            
+        }
+
+        double avgSmoker = average(smokerCharges);
+        double avgNonSmoker = average(nonSmokerCharges);
+        double rangeSmoker = range(smokerCharges);
+        double rangeNonSmoker = range(nonSmokerCharges);
+
+        System.out.println("=== Problem 11: Smokers vs Non-Smokers Charges ===");
+        System.out.printf("Smokers:     Count = %d, Avg = %.2f, Range = %.2f\n", smokerCharges.size(), avgSmoker, rangeSmoker);
+        System.out.printf("Non-Smokers: Count = %d, Avg = %.2f, Range = %.2f\n", nonSmokerCharges.size(), avgNonSmoker, rangeNonSmoker);
+
+        boolean higherAvg = avgSmoker > avgNonSmoker;
+        boolean widerRange = rangeSmoker > rangeNonSmoker;
+
+        System.out.println("Do smokers have higher average charges? " + (higherAvg ? "✅ Yes" : "❌ No"));
+        System.out.println("Do smokers have a wider range of charges? " + (widerRange ? "✅ Yes" : "❌ No"));
+    }
+
+    // Helper: Calculate average
+    public static double average(List<Double> values) {
+        if (values.isEmpty()) return 0.0;
+        double sum = 0.0;
+        for (double v : values) sum += v;
+        return sum / values.size();
+    }
+
+    // Helper: Calculate range (max - min)
+    public static double range(List<Double> values) {
+        if (values.isEmpty()) return 0.0;
+        double min = Collections.min(values);
+        double max = Collections.max(values);
+        return max - min;
+    }
+
     
 
 
