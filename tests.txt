@@ -253,3 +253,75 @@ Assert: Since 27 = 27, the statement is false. Output should be:
 The statement is false: smokers do not average lower BMI than non-smokers.
 
 
+Problem 15 Test: Sort 4 regions by average charges in descending order
+
+Test 1: Distinct averages
+
+Arrange: Dataset of charges by region:
+
+Northeast: [1000, 2000, 3000] → mean = 2000
+
+Northwest: [5000, 7000] → mean = 6000
+
+Southeast: [4000, 6000, 8000] → mean = 6000
+
+Southwest: [2000, 3000] → mean = 2500
+
+Act: Calculate average charges for each region and sort in descending order.
+
+Assert: Expected order (one valid example):
+Northwest, Southeast, Southwest, Northeast
+
+Test 2: One region has the highest average clearly
+
+Arrange: Dataset:
+
+Northeast: [1000, 2000] → mean = 1500
+
+Northwest: [7000, 8000] → mean = 7500
+
+Southeast: [4000, 4500] → mean = 4250
+
+Southwest: [3000, 3500] → mean = 3250
+
+Act: Calculate averages and sort descending.
+
+Assert: Output should be:
+Northwest, Southeast, Southwest, No
+
+Test 3: Two regions tied for the same average
+
+Arrange: Dataset:
+
+Northeast: [2000, 4000] → mean = 3000
+
+Northwest: [6000, 6000] → mean = 6000
+
+Southeast: [6000, 6000] → mean = 6000
+
+Southwest: [1000, 2000] → mean = 1500
+
+Act: Calculate averages and sort.
+
+Assert: Both Northwest and Southeast share the highest mean (6000). Output may list them in either order but both must be first, e.g.:
+Northwest, Southeast, Northeast, Southwest
+or
+Southeast, Northwest, Northeast, Southwest
+
+Test 4: All averages are equal
+
+Arrange: Dataset:
+
+Northeast: [2000, 2000] → mean = 2000
+
+Northwest: [2000, 2000] → mean = 2000
+
+Southeast: [2000, 2000] → mean = 2000
+
+Southwest: [2000, 2000] → mean = 2000
+
+Act: Calculate averages and sort.
+
+Assert: Since all averages are equal, any order of the 4 regions is acceptable.
+
+
