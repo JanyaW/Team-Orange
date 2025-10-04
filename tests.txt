@@ -325,3 +325,53 @@ Act: Calculate averages and sort.
 Assert: Since all averages are equal, any order of the 4 regions is acceptable.
 
 
+Problem 17 Test: Do Southerners smoke more than Northerners, and at what average age?
+
+Test 1: Southerners smoke more at a younger average age
+
+Arrange: Dataset of clients with age and smoker status:
+
+Southeast: ages [20 (smoker), 25 (smoker)]
+
+Southwest: ages [30 (smoker)]
+
+Northeast: ages [40 (smoker)]
+
+Northwest: ages [50 (non-smoker)]
+
+Act: Count smokers in South = 3 (avg age = 25), smokers in North = 1 (avg age = 40).
+
+Assert: Southerners smoke more, and the average age when this is true is 25.
+Output: The statement is true: Southerners smoke more than Northerners, at an average age of 25.
+
+Test 2: Northerners smoke more (statement false)
+
+Arrange: Dataset:
+
+Southeast: ages [30 (smoker)]
+
+Southwest: ages [35 (non-smoker)]
+
+Northeast: ages [40 (smoker), 45 (smoker)]
+
+Northwest: ages [50 (smoker)]
+
+Act: Count smokers in South = 1 (avg age = 30), smokers in North = 3 (avg age ≈ 45).
+
+Assert: Southerners do not smoke more. Output:
+The statement is false: Northerners smoke more than Southerners.
+
+Test 3: Equal proportions of smokers (statement false)
+
+Arrange: Dataset:
+
+South: Southeast [20 (smoker)], Southwest [30 (smoker)] → 2 smokers
+
+North: Northeast [40 (smoker)], Northwest [50 (smoker)] → 2 smokers
+
+Act: Compare totals (South = 2, North = 2).
+
+Assert: Proportions are equal, so Southerners do not smoke more. Output:
+The statement is false: Southerners do not smoke more than Northerners.
+
+
