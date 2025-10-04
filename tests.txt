@@ -1,0 +1,20 @@
+Problem 1 Test: Store the first N records of the dataset in a custom object
+
+Test 1: If N equals the dataset size
+
+Arrange: Identify the dataset with 5 records. Choose N = 5. Have a custom object prepared to store records.
+
+Act: Store the first N records from the dataset into the custom object.
+
+Assert: The custom object should contain all 5 records, in the same order as in the dataset.
+
+Test 2: If N is larger than the dataset size
+
+Arrange: Identify the dataset with 4 records. Choose N = 10. Have a custom object prepared to store records.
+
+Act: Attempt to store the first N records from the dataset into the custom object.
+
+Assert: The custom object should contain all 4 available records (not 10).
+
+
+
