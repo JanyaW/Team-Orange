@@ -67,5 +67,8 @@ public class BmiByRegion {
 
         System.out.printf("Average BMI (South): %.2f%n", avgSouth);
         System.out.printf("Average BMI (Other): %.2f%n", avgOther);
+
+        boolean isHigher = avgSouth > avgOther;
+        System.out.println("Do Southerners have a higher average BMI than others? " + isHigher);
     }
 }
