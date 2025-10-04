@@ -125,6 +125,9 @@ public class HelloWorld {
         sortRegionsByAverageCharges(allRecords);
         // === Problem 17: Southerners vs Northerners Smoking Rate and Average Age ===
         compareSmokingByRegion(allRecords);
+        // === Problem 19: Do southerners average more children than northerners? At what average age? ===
+        compareChildrenByRegion(allRecords);
+
 
 
 
@@ -376,6 +379,42 @@ public class HelloWorld {
 
         System.out.println("Do southerners smoke more than northerners? " + 
             (southernSmokingRate > northernSmokingRate ? "✅ YES" : "❌ NO"));
+    }
+    // === Problem 19: Do southerners average more children than northerners? At what average age? ===
+    public static void compareChildrenByRegion(List<InsuranceRecord> records) {
+        int southernChildren = 0;
+        int southernTotal = 0;
+        int southernAgeSum = 0;
+
+        int northernChildren = 0;
+        int northernTotal = 0;
+        int northernAgeSum = 0;
+
+        for (InsuranceRecord record : records) {
+            String region = record.region.toLowerCase().trim();
+            if (region.equals("southeast") || region.equals("southwest")) {
+                southernChildren += record.children;
+                southernAgeSum += record.age;
+                southernTotal++;
+            } else if (region.equals("northeast") || region.equals("northwest")) {
+                northernChildren += record.children;
+                northernAgeSum += record.age;
+                northernTotal++;
+            }
+        }
+
+        double avgSouthernChildren = southernTotal > 0 ? (double) southernChildren / southernTotal : 0;
+        double avgSouthernAge = southernTotal > 0 ? (double) southernAgeSum / southernTotal : 0;
+
+        double avgNorthernChildren = northernTotal > 0 ? (double) northernChildren / northernTotal : 0;
+        double avgNorthernAge = northernTotal > 0 ? (double) northernAgeSum / northernTotal : 0;
+
+        System.out.println("=== Children Comparison: Southerners vs Northerners ===");
+        System.out.printf("Southern: Avg Children = %.2f, Avg Age = %.1f\n", avgSouthernChildren, avgSouthernAge);
+        System.out.printf("Northern: Avg Children = %.2f, Avg Age = %.1f\n", avgNorthernChildren, avgNorthernAge);
+
+        System.out.println("Do southerners average more children? " +
+            (avgSouthernChildren > avgNorthernChildren ? "✅ YES" : "❌ NO"));
     }
 
 
