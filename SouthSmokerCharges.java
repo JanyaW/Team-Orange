@@ -33,13 +33,9 @@ public class SouthSmokerCharges {
                 if (line.trim().isEmpty()) continue;
                 String[] parts = line.split(",");
                 try {
-                    String smoker = parts[smokerIndex].trim().toLowerCase();
-                    String region = parts[regionIndex].trim().toLowerCase();
-                    double charge = Double.parseDouble(parts[chargesIndex].trim());
-
-                    smokers.add(smoker);
-                    regions.add(region);
-                    charges.add(charge);
+                    smokers.add(parts[smokerIndex].trim().toLowerCase());
+                    regions.add(parts[regionIndex].trim().toLowerCase());
+                    charges.add(Double.parseDouble(parts[chargesIndex].trim()));
                 } catch (Exception e) {
                     System.err.println("Skipping malformed line: " + line);
                 }
@@ -55,24 +51,17 @@ public class SouthSmokerCharges {
 
         for (int i = 0; i < smokers.size(); i++) {
             if (!smokers.get(i).equals("yes")) continue; 
-            if (regions.get(i).contains("south")) {
-                southSmokerCharges.add(charges.get(i));
-            } else {
-                otherSmokerCharges.add(charges.get(i));
-            }
+            if (regions.get(i).contains("south")) southSmokerCharges.add(charges.get(i));
+            else otherSmokerCharges.add(charges.get(i));
         }
 
-        double avgSouth = southSmokerCharges.stream()
-                .mapToDouble(Double::doubleValue)
-                .average()
-                .orElse(0.0);
+        double avgSouthSmokers = southSmokerCharges.stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
+        double avgOtherSmokers = otherSmokerCharges.stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
 
-        double avgOther = otherSmokerCharges.stream()
-                .mapToDouble(Double::doubleValue)
-                .average()
-                .orElse(0.0);
+        System.out.printf("Average charges (South smokers): %.2f%n", avgSouthSmokers);
+        System.out.printf("Average charges (Other smokers): %.2f%n", avgOtherSmokers);
 
-        System.out.printf("Average charges (South smokers): %.2f%n", avgSouth);
-        System.out.printf("Average charges (Other smokers): %.2f%n", avgOther);
+        boolean isAtLeast25PercentHigher = avgSouthSmokers >= 1.25 * avgOtherSmokers;
+        System.out.println("Are South smokers charged at least 25% more? " + isAtLeast25PercentHigher);
     }
 }
