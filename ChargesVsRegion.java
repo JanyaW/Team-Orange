@@ -82,5 +82,18 @@ public class ChargesVsRegion {
 
         double r = sumNumerator / Math.sqrt(sumXsq * sumYsq);
         System.out.printf("Pearson correlation coefficient (r): %.4f%n", r);
+
+        int[] newRegionCodes = {
+            1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3,
+            4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2,
+            3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1
+        };
+
+        System.out.println("Predicted charges for new region codes:");
+        System.out.printf("%-10s %-15s%n", "RegionCode", "PredictedCharge");
+        for (int code : newRegionCodes) {
+            double predictedCharge = intercept + slope * code;
+            System.out.printf("%-10d %-15.2f%n", code, predictedCharge);
+        }
     }
 }
