@@ -45,10 +45,7 @@ public class SmokerAgeSplit {
             return;
         }
 
-        System.out.printf("Read %d rows of age/smoker data.%n", ages.size());
-
         Integer cutoffAnswer = null;
-        double youngRate = 0.0, oldRate = 0.0;
 
         for (int cutoff = 20; cutoff <= 60; cutoff++) {
             int youngCount = 0, youngSmokers = 0;
@@ -66,22 +63,19 @@ public class SmokerAgeSplit {
                 }
             }
 
-            double youngRateTemp = youngCount > 0 ? (100.0 * youngSmokers / youngCount) : 0.0;
-            double oldRateTemp = oldCount > 0 ? (100.0 * oldSmokers / oldCount) : 0.0;
+            double youngRate = youngCount > 0 ? (100.0 * youngSmokers / youngCount) : 0.0;
+            double oldRate = oldCount > 0 ? (100.0 * oldSmokers / oldCount) : 0.0;
 
-            if (youngRateTemp > oldRateTemp) {
+            if (youngRate > oldRate) {
                 cutoffAnswer = cutoff;
-                youngRate = youngRateTemp;
-                oldRate = oldRateTemp;
-                break; 
+                break;
             }
         }
 
         if (cutoffAnswer != null) {
-            System.out.printf("At cutoff age %d, young people smoke more (%.2f%%) than older people (%.2f%%)%n",
-                              cutoffAnswer, youngRate, oldRate);
+            System.out.printf("Yes. Young people smoke more than older people starting at age cutoff %d.%n", cutoffAnswer);
         } else {
-            System.out.println("No cutoff age found where young people smoke more.");
+            System.out.println("No. There is no age cutoff where young people smoke more than older people.");
         }
     }
 }
