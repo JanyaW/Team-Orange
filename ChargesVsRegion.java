@@ -67,5 +67,20 @@ public class ChargesVsRegion {
         double intercept = meanY - slope * meanX;
 
         System.out.printf("Regression line: y = %.2f + %.2f*x%n", intercept, slope);
+
+        double sumNumerator = 0.0;
+        double sumXsq = 0.0;
+        double sumYsq = 0.0;
+
+        for (int i = 0; i < regionCodes.size(); i++) {
+            double dx = regionCodes.get(i) - meanX;
+            double dy = charges.get(i) - meanY;
+            sumNumerator += dx * dy;
+            sumXsq += dx * dx;
+            sumYsq += dy * dy;
+        }
+
+        double r = sumNumerator / Math.sqrt(sumXsq * sumYsq);
+        System.out.printf("Pearson correlation coefficient (r): %.4f%n", r);
     }
 }
