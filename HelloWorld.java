@@ -123,6 +123,9 @@ public class HelloWorld {
         compareSmokerBMI(allRecords);
         // === Problem 15: Sort Regions by Average Charges Descending ===
         sortRegionsByAverageCharges(allRecords);
+        // === Problem 17: Southerners vs Northerners Smoking Rate and Average Age ===
+        compareSmokingByRegion(allRecords);
+
 
 
 
@@ -335,6 +338,44 @@ public class HelloWorld {
         for (Map.Entry<String, Double> entry : regionAvgCharges) {
             System.out.printf("Region: %-10s | Avg Charges: $%.2f\n", entry.getKey(), entry.getValue());
         }
+    }
+    // === Problem 17: Southerners vs Northerners Smoking Rate and Average Age ===
+    public static void compareSmokingByRegion(List<InsuranceRecord> records) {
+        int southernSmokers = 0;
+        int southernTotal = 0;
+        int southernAgeSum = 0;
+
+        int northernSmokers = 0;
+        int northernTotal = 0;
+        int northernAgeSum = 0;
+
+        for (InsuranceRecord record : records) {
+            String region = record.region.toLowerCase().trim();
+            int age = record.age;
+
+            if (region.equals("southeast") || region.equals("southwest")) {
+                southernTotal++;
+                southernAgeSum += age;
+                if (record.smoker) southernSmokers++;  // no need for equalsIgnoreCase
+            } else if (region.equals("northeast") || region.equals("northwest")) {
+                northernTotal++;
+                northernAgeSum += age;
+                if (record.smoker) northernSmokers++;
+            }
+        }
+
+        double southernSmokingRate = southernTotal > 0 ? (double) southernSmokers / southernTotal : 0;
+        double northernSmokingRate = northernTotal > 0 ? (double) northernSmokers / northernTotal : 0;
+
+        double avgSouthernAge = southernTotal > 0 ? (double) southernAgeSum / southernTotal : 0;
+        double avgNorthernAge = northernTotal > 0 ? (double) northernAgeSum / northernTotal : 0;
+
+        System.out.println("=== Smoking Comparison: Southerners vs Northerners ===");
+        System.out.printf("Southern Smoking Rate: %.2f%% (Avg Age: %.1f)\n", southernSmokingRate * 100, avgSouthernAge);
+        System.out.printf("Northern Smoking Rate: %.2f%% (Avg Age: %.1f)\n", northernSmokingRate * 100, avgNorthernAge);
+
+        System.out.println("Do southerners smoke more than northerners? " + 
+            (southernSmokingRate > northernSmokingRate ? "✅ YES" : "❌ NO"));
     }
 
 
