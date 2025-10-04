@@ -162,3 +162,52 @@ Act: Calculate the charge range for each BMI group and compare them.
 Assert: All groups have the same range (1000). The statement is false, because the 30–45 group is not greater.
 
 
+Problem 11 Test: Do smokers have higher charges and a wider range than non-smokers?
+
+Test 1: Smokers have both higher mean and wider range (hypothesis true)
+
+Arrange: Create a dataset split by smoker status with charges:
+
+Smokers: [5000, 7000, 9000] → mean = 7000, range = 4000
+
+Non-smokers: [1000, 2000, 3000] → mean = 2000, range = 2000
+
+Act: Calculate mean and range for smokers and non-smokers; compare smoker mean > non-smoker mean AND smoker range > non-smoker range.
+
+Assert: Both conditions hold (7000 > 2000 and 4000 > 2000). The hypothesis is true for this dataset.
+
+Test 2: Smokers have higher mean but not a wider range (hypothesis false)
+
+Arrange: Create a dataset:
+
+Smokers: [4000, 5000, 6000] → mean = 5000, range = 2000
+
+Non-smokers: [1000, 3000, 5000] → mean = 3000, range = 4000
+
+Act: Calculate mean and range for both groups and compare.
+
+Assert: Smoker mean > non-smoker mean (5000 > 3000) but smoker range < non-smoker range (2000 < 4000). Because the hypothesis requires both higher mean and wider range, the hypothesis is false for this dataset.
+
+Test 3: Smokers have wider range but not higher mean (hypothesis false)
+
+Arrange: Create a dataset:
+
+Smokers: [1000, 9000] → mean = 5000, range = 8000
+
+Non-smokers: [4000, 4500, 5000] → mean = 4500, range = 1000
+
+Act: Calculate mean and range for both groups and compare.
+
+Assert: Smoker range > non-smoker range (8000 > 1000) but smoker mean > non-smoker mean is only slightly true (5000 > 4500) — if mean is greater, both conditions might hold; to demonstrate the opposite, change numbers so mean is not greater. (Alternate example below.)
+
+Alternate Arrange (means not higher):
+
+Smokers: [1000, 9000] (mean 5000)
+
+Non-smokers: [6000, 6000] (mean 6000, range 0)
+
+Act: Recalculate.
+
+Assert (alternate): Smoker range > non-smoker range (8000 > 0) but smoker mean < non-smoker mean (5000 < 6000). The hypothesis is false.
+
+
