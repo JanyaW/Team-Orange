@@ -111,6 +111,8 @@ public class HelloWorld {
             }
             System.out.println(" (" + ageCounts[i] + ")");
         }
+        countChildrenRecords(allRecords);
+
     }    
     // === Problem 1: Get First N Records ===
     public static List<InsuranceRecord> getFirstNRecords(String filename, int N) {
