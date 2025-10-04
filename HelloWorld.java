@@ -82,7 +82,7 @@ public class HelloWorld {
 
          // === Problem 3: Horizontal Histogram of Age ===
         System.out.println("=== Horizontal Histogram of Age ===");
-
+        
         List<InsuranceRecord> allRecords = getFirstNRecords(filename, Integer.MAX_VALUE);
 
         List<Integer> ages = new ArrayList<>();
@@ -111,7 +111,11 @@ public class HelloWorld {
             }
             System.out.println(" (" + ageCounts[i] + ")");
         }
+        // === Problem 5: Count Records by Number of Children ===
         countChildrenRecords(allRecords);
+        // Problem 7: Check Region Fairness
+        checkRegionFairness(allRecords);
+
 
     }    
     // === Problem 1: Get First N Records ===
@@ -153,7 +157,37 @@ public class HelloWorld {
                     entry.getValue(),
                     entry.getValue() == 1 ? "" : "s");
         }
-    }   
+    } 
+    // Problem 7: Check Region Fairness
+    public static void checkRegionFairness(List<InsuranceRecord> records) {
+        Map<String, Integer> regionCounts = new TreeMap<>();
+    
+        for (InsuranceRecord record : records) {
+            String region = record.region.toLowerCase().trim();
+            regionCounts.put(region, regionCounts.getOrDefault(region, 0) + 1);
+        }
+    
+        int totalRecords = records.size();
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+    
+        for (int count : regionCounts.values()) {
+            if (count < min) min = count;
+            if (count > max) max = count;
+        }
+    
+        double threshold = totalRecords * 0.05;
+        boolean isFair = (max - min) <= threshold;
+    
+        System.out.println("=== Region Fairness Check ===");
+        for (Map.Entry<String, Integer> entry : regionCounts.entrySet()) {
+            System.out.printf("Region: %-12s => %d records\n", entry.getKey(), entry.getValue());
+        }
+        System.out.printf("Max-Min Difference: %d\n", (max - min));
+        System.out.printf("Allowed Threshold (5%% of %d): %.2f\n", totalRecords, threshold);
+        System.out.println("Is data fair? " + (isFair ? "✅ YES" : "❌ NO"));
+    }
+      
     
 
 
