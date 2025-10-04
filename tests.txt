@@ -429,3 +429,47 @@ Assert: The output should be:
 The statement is false: Southerners do not average more children than Northerners.
 
 
+Problem 21 Test: Regression of charges vs. number of children
+
+Test 1: Normal dataset with positive correlation
+
+Arrange: Dataset of pairs (children, charges):
+
+(0, 2000), (1, 4000), (2, 6000), (3, 8000)
+
+Act: Perform regression.
+
+Regression line ≈ y = 2000 + 2000x
+
+Pearson r ≈ 1.0 (perfect correlation)
+
+Apply to 22 new charges → output corresponding (x, y) values using regression line.
+
+Assert: The output should be:
+Regression equation: y = 2000 + 2000x  
+Pearson r = 1.0  
+Predicted values for 22 charges: [(x1, y1), (x2, y2), …, (x22, y22)]
+
+
+Test 2: Dataset with no correlation
+
+Arrange: Dataset: (0, 3000), (1, 2800), (2, 3100), (3, 2900)
+
+Act: Regression line will be nearly flat (very small slope). Pearson r ≈ 0.
+
+Assert: The output should be:
+Regression equation: y = [constant] + [near 0 slope] * x  
+Pearson r ≈ 0  
+Predicted values for 22 charges: [(x1, y1), (x2, y2), …]
+
+
+Test 3: Dataset with negative correlation
+
+Arrange: Dataset: (0, 8000), (1, 6000), (2, 4000), (3, 2000)
+
+Act: Regression line ≈ y = 8000 - 2000x. Pearson r ≈ -1.0.
+
+Assert: The output should be:
+Regression equation: y = 8000 - 2000x  
+Pearson r = -1.0  
+Predicted values for 22 charges: [(x1, y1), (x2, y2), …]
