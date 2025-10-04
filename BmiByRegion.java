@@ -61,5 +61,11 @@ public class BmiByRegion {
 
         System.out.printf("South BMIs: %d%n", southBMIs.size());
         System.out.printf("Other BMIs: %d%n", otherBMIs.size());
+
+        double avgSouth = southBMIs.stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
+        double avgOther = otherBMIs.stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
+
+        System.out.printf("Average BMI (South): %.2f%n", avgSouth);
+        System.out.printf("Average BMI (Other): %.2f%n", avgOther);
     }
 }
