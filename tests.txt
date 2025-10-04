@@ -211,3 +211,45 @@ Act: Recalculate.
 Assert (alternate): Smoker range > non-smoker range (8000 > 0) but smoker mean < non-smoker mean (5000 < 6000). The hypothesis is false.
 
 
+Problem 13 Test: Compare average BMI of smokers vs. non-smokers
+
+Test 1: Smokers have lower average BMI (statement true)
+
+Arrange: Dataset with BMI values:
+
+Smokers: [20, 22, 24] → mean = 22
+
+Non-smokers: [28, 30, 32] → mean = 30
+
+Act: Calculate the mean BMI for smokers and non-smokers.
+
+Assert: Since 22 < 30, the output should be:
+The statement is true: smokers average lower BMI than non-smokers.
+
+Test 2: Smokers have higher average BMI (statement false)
+
+Arrange: Dataset with BMI values:
+
+Smokers: [29, 30, 31] → mean = 30
+
+Non-smokers: [22, 24, 26] → mean = 24
+
+Act: Calculate the mean BMI for smokers and non-smokers.
+
+Assert: Since 30 > 24, the output should be:
+The statement is false: smokers do not average lower BMI than non-smokers.
+
+Test 3: Smokers and non-smokers have equal average BMI (statement false)
+
+Arrange: Dataset with BMI values:
+
+Smokers: [25, 27, 29] → mean = 27
+
+Non-smokers: [26, 28, 27] → mean = 27
+
+Act: Calculate the mean BMI for smokers and non-smokers.
+
+Assert: Since 27 = 27, the statement is false. Output should be:
+The statement is false: smokers do not average lower BMI than non-smokers.
+
+
