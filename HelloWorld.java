@@ -121,6 +121,9 @@ public class HelloWorld {
         analyzeSmokerCharges(allRecords);
         // Problem 13: Do smokers average lower BMI than non-smokers?
         compareSmokerBMI(allRecords);
+        // === Problem 15: Sort Regions by Average Charges Descending ===
+        sortRegionsByAverageCharges(allRecords);
+
 
 
 
@@ -304,6 +307,36 @@ public class HelloWorld {
         System.out.printf("Average BMI for non-smokers: %.2f\n", avgNonSmokerBMI);
         System.out.println("Do smokers average lower BMI than non-smokers? " + (avgSmokerBMI < avgNonSmokerBMI ? "✅ YES" : "❌ NO"));
     }
+    // === Problem 15: Sort Regions by Average Charges Descending ===
+    public static void sortRegionsByAverageCharges(List<InsuranceRecord> records) {
+        Map<String, List<Double>> regionChargesMap = new TreeMap<>();
+
+        // Group charges by region
+        for (InsuranceRecord record : records) {
+            String region = record.region.toLowerCase().trim();
+            regionChargesMap.putIfAbsent(region, new ArrayList<>());
+            regionChargesMap.get(region).add(record.charges);
+        }
+
+        // Compute average charge for each region
+        List<Map.Entry<String, Double>> regionAvgCharges = new ArrayList<>();
+        for (Map.Entry<String, List<Double>> entry : regionChargesMap.entrySet()) {
+            List<Double> charges = entry.getValue();
+            double sum = 0;
+            for (double c : charges) sum += c;
+            double avg = charges.size() > 0 ? sum / charges.size() : 0;
+            regionAvgCharges.add(Map.entry(entry.getKey(), avg));
+        }
+
+        // Sort by average charges descending
+        regionAvgCharges.sort((a, b) -> Double.compare(b.getValue(), a.getValue()));
+
+        System.out.println("=== Regions Sorted by Average Charges (Descending) ===");
+        for (Map.Entry<String, Double> entry : regionAvgCharges) {
+            System.out.printf("Region: %-10s | Avg Charges: $%.2f\n", entry.getKey(), entry.getValue());
+        }
+    }
+
 
         
 
