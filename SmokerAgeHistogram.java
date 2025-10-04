@@ -56,21 +56,31 @@ public class SmokerAgeHistogram {
 
         int minAge = smokerAges.stream().min(Integer::compare).orElse(0);
         int maxAge = smokerAges.stream().max(Integer::compare).orElse(0);
-        int numBins = 10;  
+        int numBins = 10;
         int binWidth = (int) Math.ceil((double)(maxAge - minAge) / numBins);
 
         int[] counts = new int[numBins];
         for (int age : smokerAges) {
             int bin = (age - minAge) / binWidth;
-            if (bin == numBins) bin--; 
+            if (bin == numBins) bin--;
             counts[bin]++;
         }
 
-        System.out.println("Smoker Age Distribution:");
+        int maxCount = 0;
+        for (int c : counts) if (c > maxCount) maxCount = c;
+
+        for (int level = maxCount; level > 0; level--) {
+            for (int c : counts) {
+                if (c >= level) System.out.printf("%-5s", "*");
+                else System.out.printf("%-5s", " ");
+            }
+            System.out.println();
+        }
+
         for (int i = 0; i < numBins; i++) {
             int lower = minAge + i * binWidth;
-            int upper = lower + binWidth;
-            System.out.printf("[%d - %d): %d%n", lower, upper, counts[i]);
+            System.out.printf("%-5d", lower);
         }
+        System.out.println();
     }
 }
