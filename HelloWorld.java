@@ -127,6 +127,9 @@ public class HelloWorld {
         compareSmokingByRegion(allRecords);
         // === Problem 19: Do southerners average more children than northerners? At what average age? ===
         compareChildrenByRegion(allRecords);
+        // === Problem 21: Linear Regression of Charges vs Children ===
+        regressionChargesVsChildren(allRecords);
+
 
 
 
@@ -415,6 +418,50 @@ public class HelloWorld {
 
         System.out.println("Do southerners average more children? " +
             (avgSouthernChildren > avgNorthernChildren ? "✅ YES" : "❌ NO"));
+    }
+    // === Problem 21: Linear Regression of Charges vs Children ===
+    public static void regressionChargesVsChildren(List<InsuranceRecord> records) {
+        List<Integer> xChildren = new ArrayList<>();
+        List<Double> yCharges = new ArrayList<>();
+
+        for (InsuranceRecord r : records) {
+            xChildren.add(r.children);
+            yCharges.add(r.charges);
+        }
+
+        int n = xChildren.size();
+        double sumX = 0, sumY = 0;
+        for (int i = 0; i < n; i++) {
+            sumX += xChildren.get(i);
+            sumY += yCharges.get(i);
+        }
+
+        double meanX = sumX / n;
+        double meanY = sumY / n;
+
+        double numerator = 0, denominatorX = 0, denominatorY = 0;
+        for (int i = 0; i < n; i++) {
+            double dx = xChildren.get(i) - meanX;
+            double dy = yCharges.get(i) - meanY;
+            numerator += dx * dy;
+            denominatorX += dx * dx;
+            denominatorY += dy * dy;
+        }
+
+        double r = numerator / Math.sqrt(denominatorX * denominatorY);
+        double slope = numerator / denominatorX;  // a
+        double intercept = meanY - slope * meanX; // b
+
+        System.out.println("=== Linear Regression: Charges vs. Children ===");
+        System.out.printf("r (Pearson Correlation Coefficient): %.4f\n", r);
+        System.out.printf("Regression Equation: y = %.2f * x + %.2f\n", slope, intercept);
+
+        // Apply regression to 22 new x values (e.g., children counts from 6 to 27)
+        System.out.println("=== Regression Predictions for New Children Counts ===");
+        for (int x = 6; x < 28; x++) {  // 22 values
+            double predictedY = slope * x + intercept;
+            System.out.printf("Children: %2d => Predicted Charges: $%.2f\n", x, predictedY);
+        }
     }
 
 
