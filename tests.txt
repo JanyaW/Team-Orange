@@ -117,3 +117,48 @@ Act: Attempt to calculate fairness.
 
 Assert: With no data available, fairness cannot be determined. The program should either report “No data available” or treat the dataset as not fair.
 
+Problem 9 Test: Compare charge ranges for BMI groups
+
+Test 1: BMI 30–45 range is clearly larger
+
+Arrange: Identify dataset of charges grouped by BMI:
+
+Group 1 (<30): charges [1000, 1500] → range = 500
+
+Group 2 (30–45): charges [2000, 4000] → range = 2000
+
+Group 3 (>45): charges [3000, 3500] → range = 500
+
+Act: Calculate the charge range for each BMI group and compare them.
+
+Assert: Group 2’s range (2000) is greater than both Group 1 (500) and Group 3 (500). The statement is true.
+
+Test 2: BMI 30–45 range is not the largest
+
+Arrange: Identify dataset of charges grouped by BMI:
+
+Group 1 (<30): charges [1000, 4000] → range = 3000
+
+Group 2 (30–45): charges [2000, 3500] → range = 1500
+
+Group 3 (>45): charges [2500, 3000] → range = 500
+
+Act: Calculate the charge range for each BMI group and compare them.
+
+Assert: Group 1’s range (3000) is greater than Group 2 (1500). The statement is false.
+
+Test 3: All groups have equal ranges
+
+Arrange: Identify dataset of charges grouped by BMI:
+
+Group 1 (<30): charges [1000, 2000] → range = 1000
+
+Group 2 (30–45): charges [3000, 4000] → range = 1000
+
+Group 3 (>45): charges [5000, 6000] → range = 1000
+
+Act: Calculate the charge range for each BMI group and compare them.
+
+Assert: All groups have the same range (1000). The statement is false, because the 30–45 group is not greater.
+
+
