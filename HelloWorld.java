@@ -115,6 +115,9 @@ public class HelloWorld {
         countChildrenRecords(allRecords);
         // Problem 7: Check Region Fairness
         checkRegionFairness(allRecords);
+        // Problem 9 : Compare Charge Ranges by BMI Groups
+        compareChargeRangesByBMI(allRecords);
+
 
 
     }    
@@ -187,7 +190,46 @@ public class HelloWorld {
         System.out.printf("Allowed Threshold (5%% of %d): %.2f\n", totalRecords, threshold);
         System.out.println("Is data fair? " + (isFair ? "✅ YES" : "❌ NO"));
     }
-      
+    // Problem 9 : Compare Charge Ranges by BMI Groups
+    public static void compareChargeRangesByBMI(List<InsuranceRecord> records) {
+        List<Double> chargesUnder30 = new ArrayList<>();
+        List<Double> charges30to45 = new ArrayList<>();
+        List<Double> chargesOver45 = new ArrayList<>();
+    
+        for (InsuranceRecord record : records) {
+            double bmi = record.bmi;
+            double charge = record.charges;
+    
+            if (bmi < 30) {
+                chargesUnder30.add(charge);
+            } else if (bmi <= 45) {
+                charges30to45.add(charge);
+            } else {
+                chargesOver45.add(charge);
+            }
+        }
+    
+        double rangeUnder30 = calculateRange(chargesUnder30);
+        double range30to45 = calculateRange(charges30to45);
+        double rangeOver45 = calculateRange(chargesOver45);
+    
+        System.out.println("=== Problem 9: Charges Range by BMI Groups ===");
+        System.out.printf("BMI < 30      -> Range: %.2f\n", rangeUnder30);
+        System.out.printf("BMI 30–45     -> Range: %.2f\n", range30to45);
+        System.out.printf("BMI > 45      -> Range: %.2f\n", rangeOver45);
+    
+        boolean isGroupBGreatest = range30to45 > rangeUnder30 && range30to45 > rangeOver45;
+        System.out.println("Is BMI 30–45 range the greatest? " + (isGroupBGreatest ? "✅ YES" : "❌ NO"));
+    }
+    
+    private static double calculateRange(List<Double> charges) {
+        if (charges.isEmpty()) return 0.0;
+    
+        double min = Collections.min(charges);
+        double max = Collections.max(charges);
+        return max - min;
+    }
+    
     
 
 
