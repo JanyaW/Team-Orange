@@ -18,3 +18,48 @@ Assert: The custom object should contain all 4 available records (not 10).
 
 
 
+Problem 3 Test: Display a horizontal text-based histogram of the ages
+
+Test 1: Basic multi-age histogram
+
+Arrange: Dataset of client ages: [10, 12, 10, 11]. Use * as the bar character.
+
+Act: Generate and print the histogram (one line per age present, ascending).
+
+Assert: The printed histogram should be exactly:
+10: **
+11: *
+12: *
+
+Test 2: Single-age dataset
+
+Arrange: Dataset of client ages: [7, 7, 7]. Use * as the bar character.
+
+Act: Generate and print the histogram.
+
+Assert: The printed histogram should be exactly:
+
+7: ***
+
+Test 3: Empty dataset (no valid ages)
+
+Arrange: Dataset of client ages: [] (empty).
+
+Act: Attempt to generate and print the histogram.
+
+Assert: The program should print:
+
+No data to display.
+
+Test 4: Dataset includes invalid/negative ages which must be ignored
+
+Arrange: Dataset of client ages: [-1, 10, 10, -5, 11]. Negative ages are invalid and should be ignored by the histogram logic. Use * as the bar character.
+
+Act: Filter out invalid ages, generate and print the histogram for the remaining ages.
+
+Assert: The printed histogram should be exactly:
+
+10: **
+11: *
+
+
