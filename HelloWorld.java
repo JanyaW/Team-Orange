@@ -119,6 +119,9 @@ public class HelloWorld {
         compareChargeRangesByBMI(allRecords);
         // === Problem 11: Smokers vs Non-Smokers Charges ===
         analyzeSmokerCharges(allRecords);
+        // Problem 13: Do smokers average lower BMI than non-smokers?
+        compareSmokerBMI(allRecords);
+
 
 
 
@@ -277,8 +280,32 @@ public class HelloWorld {
         double max = Collections.max(values);
         return max - min;
     }
+    // Problem 13: Do smokers average lower BMI than non-smokers?
+    public static void compareSmokerBMI(List<InsuranceRecord> records) {
+        double smokerBMISum = 0;
+        int smokerCount = 0;
+        double nonSmokerBMISum = 0;
+        int nonSmokerCount = 0;
 
-    
+        for (InsuranceRecord record : records) {
+            if (record.smoker) {  // smoker is boolean
+                smokerBMISum += record.bmi;
+                smokerCount++;
+            } else {
+                nonSmokerBMISum += record.bmi;
+                nonSmokerCount++;
+            }
+        }
+
+        double avgSmokerBMI = smokerCount > 0 ? smokerBMISum / smokerCount : 0;
+        double avgNonSmokerBMI = nonSmokerCount > 0 ? nonSmokerBMISum / nonSmokerCount : 0;
+
+        System.out.printf("Average BMI for smokers: %.2f\n", avgSmokerBMI);
+        System.out.printf("Average BMI for non-smokers: %.2f\n", avgNonSmokerBMI);
+        System.out.println("Do smokers average lower BMI than non-smokers? " + (avgSmokerBMI < avgNonSmokerBMI ? "✅ YES" : "❌ NO"));
+    }
+
+        
 
 
 
