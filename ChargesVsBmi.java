@@ -58,5 +58,19 @@ public class ChargesVsBmi {
         double intercept = meanY - slope * meanX;
 
         System.out.printf("Regression line: y = %.2f + %.2f*x%n", intercept, slope);
+
+        double sumXY = 0.0;
+        double sumX2 = 0.0;
+        double sumY2 = 0.0;
+        for (int i = 0; i < bmis.size(); i++) {
+            double dx = bmis.get(i) - meanX;
+            double dy = charges.get(i) - meanY;
+            sumXY += dx * dy;
+            sumX2 += dx * dx;
+            sumY2 += dy * dy;
+        }
+        double r = sumXY / Math.sqrt(sumX2 * sumY2);
+
+        System.out.printf("Pearson correlation coefficient (r): %.4f%n", r);
     }
 }
