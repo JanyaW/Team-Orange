@@ -82,3 +82,38 @@ Act: Count the total number of clients whose ages are greater than 0 and less th
 Assert: The total number of records for children is: 3.
 
 
+Problem 7 Test: Determine if the dataset is “fair”
+
+Test 1: Perfectly balanced dataset
+
+Arrange: Identify the dataset of records grouped by region. Suppose there are 100 total records, evenly split across 4 regions (25 per region).
+
+Act: Compare the percentage of records in each region.
+
+Assert: Since all regions have exactly 25%, the differences are 0%, which is within the 5% tolerance. The data is fair.Problem 7 Test: Determine if the dataset is “fair”
+
+
+Test 2: Slight imbalance within 5%
+
+Arrange: Identify the dataset of 100 records, split across 2 regions: Region A = 52 records, Region B = 48 records.
+
+Act: Compare the percentage of records per region. Region A = 52%, Region B = 48%.
+
+Assert: The difference is 4%, which is within the 5% tolerance. The data is fair.
+
+Test 3: Multiple regions with one outlier
+
+Arrange: Identify the dataset of 100 records across 3 regions: Region A = 30, Region B = 33, Region C = 37.
+
+Act: Compare the percentage of records per region. A = 30%, B = 33%, C = 37%.
+
+Assert: The largest difference is 7% (30% vs. 37%), which exceeds the 5% tolerance. The data is not fair.
+
+Test 4: Empty dataset
+
+Arrange: Identify the dataset with 0 records across all regions.
+
+Act: Attempt to calculate fairness.
+
+Assert: With no data available, fairness cannot be determined. The program should either report “No data available” or treat the dataset as not fair.
+
