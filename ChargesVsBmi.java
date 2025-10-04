@@ -72,5 +72,13 @@ public class ChargesVsBmi {
         double r = sumXY / Math.sqrt(sumX2 * sumY2);
 
         System.out.printf("Pearson correlation coefficient (r): %.4f%n", r);
+
+        double[] newBMIs = {16.0, 18.5, 20.0, 22.5, 25.0, 27.5, 30.0, 32.5, 35.0, 37.5, 40.0};
+        System.out.println("\nPredicted charges for new BMI values:");
+        System.out.printf("%-10s %-15s%n", "BMI", "PredictedCharge");
+        for (double bmi : newBMIs) {
+            double predictedCharge = intercept + slope * bmi;
+            System.out.printf("%-10.1f %-15.2f%n", bmi, predictedCharge);
+        }
     }
 }
