@@ -375,3 +375,57 @@ Assert: Proportions are equal, so Southerners do not smoke more. Output:
 The statement is false: Southerners do not smoke more than Northerners.
 
 
+Problem 19 Test: Do Southerners average more children than Northerners, and at what average age?
+
+Test 1: Southerners average more children (true)
+
+Arrange: Dataset with children and ages:
+
+Southeast: ages [20, 25], children [2, 3] → mean children = 2.5
+
+Southwest: ages [30], children [2] → mean children = 2
+
+Northeast: ages [40], children [1] → mean children = 1
+
+Northwest: ages [50], children [0] → mean children = 0
+
+Act: Calculate averages. South = 2.25 children, North = 0.5 children.
+
+Assert: The output should be:
+The statement is true: Southerners average more children than Northerners, at an average age of 25.
+
+Test 2: Northerners average more children (false)
+
+Arrange: Dataset:
+
+Southeast: ages [30], children [1] → mean = 1
+
+Southwest: ages [35], children [0] → mean = 0
+
+Northeast: ages [40, 45], children [2, 3] → mean = 2.5
+
+Northwest: ages [50], children [2] → mean = 2
+
+Act: South = 0.5 children, North = 2.25 children.
+
+Assert: The output should be:
+The statement is false: Southerners do not average more children than Northerners.
+
+Test 3: Equal averages (false)
+
+Arrange: Dataset:
+
+Southeast: ages [20], children [2]
+
+Southwest: ages [30], children [0] → South mean = 1
+
+Northeast: ages [40], children [2]
+
+Northwest: ages [50], children [0] → North mean = 1
+
+Act: South = 1, North = 1.
+
+Assert: The output should be:
+The statement is false: Southerners do not average more children than Northerners.
+
+
