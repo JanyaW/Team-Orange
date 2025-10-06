@@ -16,4 +16,10 @@ Run regression and compute Pearson r
 Assert:
 r should be approximately 1.0
 
-
+Case Sensitivity in Smoker Classification
+Arrange:
+Add records with "Smoker", "smoker", and "SMOKER"
+Act:
+Count smokers
+Assert:
+Normalize case(s) and count correctly
