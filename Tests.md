@@ -23,3 +23,11 @@ Act:
 Count smokers
 Assert:
 Normalize case(s) and count correctly
+
+Adding Duplicate Records
+Arrange:
+Add identical Records objects to DataStorage.
+Act:
+Call size() and getRecords()
+Assert:
+Should reflect duplicates unless explicitly filtered
