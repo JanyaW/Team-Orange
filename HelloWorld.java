@@ -147,7 +147,16 @@ public class HelloWorld {
         }
         System.out.println(">>> END OF SECTION 6 <<<\n");
 
-        // ========= 8) FUTURE FEATURES PLACEHOLDER =========
+        // ========= 8) CHARGES vs BMI REGRESSION =========
+        System.out.println(">>> SECTION 7: CHARGES vs BMI (regression + r + predictions) <<<");
+        try {
+            ChargesVsBmi.main(new String[]{ filename });
+        } catch (Throwable t) {
+            System.err.println("Warning: Could not run ChargesVsBmi: " + t.getMessage());
+        }
+        System.out.println(">>> END OF SECTION 7 <<<\n");
+
+        // ========= 9) FUTURE FEATURES PLACEHOLDER =========
         System.out.println(">>> ADDITIONAL SECTIONS COMING SOON <<<");
         System.out.println("   AgeHistogramHorizontal.main(new String[]{ filename });");
         System.out.println("   RegionFairness.main(new String[]{ filename });");
