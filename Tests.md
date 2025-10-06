@@ -68,3 +68,13 @@ Act:
 Call percentile() method.
 Assert: 
 Should interpolate correctly for even and return exact for odd.
+
+
+Boundary Test for Fairness Threshold
+Arrange: 
+Create region counts that differ by exactly 5%.
+Act: 
+Call checkFairnessByRegion().
+Assert: 
+Should return true.
+
