@@ -105,7 +105,6 @@ public class HelloWorld {
         // ========= 3) CHARGES BY AGE SECTION =========
         System.out.println(">>> SECTION 2: CHARGES BY AGE <<<");
         try {
-            // Calls the merged file ChargesByAge.java
             ChargesByAge.main(new String[]{ filename });
         } catch (Throwable t) {
             System.err.println("Warning: Could not run ChargesByAge: " + t.getMessage());
@@ -115,14 +114,22 @@ public class HelloWorld {
         // ========= 4) CHARGES PER CHILD SECTION =========
         System.out.println(">>> SECTION 3: CHARGES PER CHILD <<<");
         try {
-            // Calls the merged file ChargesPerChild.java
             ChargesPerChild.main(new String[]{ filename });
         } catch (Throwable t) {
             System.err.println("Warning: Could not run ChargesPerChild: " + t.getMessage());
         }
         System.out.println(">>> END OF SECTION 3 <<<\n");
 
-        // ========= 5) FUTURE FEATURES PLACEHOLDER =========
+        // ========= 5) SOUTH SMOKER CHARGES SECTION =========
+        System.out.println(">>> SECTION 4: SOUTH SMOKER CHARGES (>=25%?) <<<");
+        try {
+            SouthSmokerCharges.main(new String[]{ filename });
+        } catch (Throwable t) {
+            System.err.println("Warning: Could not run SouthSmokerCharges: " + t.getMessage());
+        }
+        System.out.println(">>> END OF SECTION 4 <<<\n");
+
+        // ========= 6) FUTURE FEATURES PLACEHOLDER =========
         System.out.println(">>> ADDITIONAL SECTIONS COMING SOON <<<");
         System.out.println("For future merged files, add calls like:");
         System.out.println("   AgeHistogramHorizontal.main(new String[]{ filename });");
