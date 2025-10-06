@@ -55,3 +55,16 @@ Act:
 Call the method.
 Assert: 
 Should not crash; should display a clear message.
+
+
+Percentile Calculation with Even vs. Odd List Sizes
+Arrange: Use both even-length and odd-length lists.
+Act: Call percentile() method.
+Assert: Should interpolate correctly for even and return exact for odd.
+Sizes
+Arrange: 
+Use both even-length and odd-length lists.
+Act: 
+Call percentile() method.
+Assert: 
+Should interpolate correctly for even and return exact for odd.
