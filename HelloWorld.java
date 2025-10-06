@@ -129,9 +129,17 @@ public class HelloWorld {
         }
         System.out.println(">>> END OF SECTION 4 <<<\n");
 
-        // ========= 6) FUTURE FEATURES PLACEHOLDER =========
+        // ========= 6) SMOKER AGE HISTOGRAM SECTION =========
+        System.out.println(">>> SECTION 5: SMOKER AGE HISTOGRAM <<<");
+        try {
+            SmokerAgeHistogram.main(new String[]{ filename });
+        } catch (Throwable t) {
+            System.err.println("Warning: Could not run SmokerAgeHistogram: " + t.getMessage());
+        }
+        System.out.println(">>> END OF SECTION 5 <<<\n");
+
+        // ========= 7) FUTURE FEATURES PLACEHOLDER =========
         System.out.println(">>> ADDITIONAL SECTIONS COMING SOON <<<");
-        System.out.println("For future merged files, add calls like:");
         System.out.println("   AgeHistogramHorizontal.main(new String[]{ filename });");
         System.out.println("   RegionFairness.main(new String[]{ filename });");
         System.out.println("   SmokersVsNonSmokersHistogram.main(new String[]{ filename });");
