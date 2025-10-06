@@ -48,3 +48,10 @@ Call compareChargesByAgeGroup().
 Assert: 
 Should return false for “twice as much” claim.
 
+Histogram Rendering with Empty Input
+Arrange: 
+Pass an empty list to displayHistogram().
+Act: 
+Call the method.
+Assert: 
+Should not crash; should display a clear message.
