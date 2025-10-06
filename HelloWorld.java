@@ -156,7 +156,16 @@ public class HelloWorld {
         }
         System.out.println(">>> END OF SECTION 7 <<<\n");
 
-        // ========= 9) FUTURE FEATURES PLACEHOLDER =========
+        // ========= 9) CHARGES vs REGION REGRESSION =========
+        System.out.println(">>> SECTION 8: CHARGES vs REGION (regression + r) <<<");
+        try {
+            ChargesVsRegion.main(new String[]{ filename });
+        } catch (Throwable t) {
+            System.err.println("Warning: Could not run ChargesVsRegion: " + t.getMessage());
+        }
+        System.out.println(">>> END OF SECTION 8 <<<\n");
+
+        // ========= 10) FUTURE FEATURES PLACEHOLDER =========
         System.out.println(">>> ADDITIONAL SECTIONS COMING SOON <<<");
         System.out.println("   AgeHistogramHorizontal.main(new String[]{ filename });");
         System.out.println("   RegionFairness.main(new String[]{ filename });");
