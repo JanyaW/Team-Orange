@@ -39,3 +39,12 @@ Act:
 Sort regions.
 Assert: 
 Should maintain stable sort or document tie-breaking.
+
+Charge Comparison for Age Groups with Equal Averages
+Arrange: 
+Add records for age ≤20 and ≥50 with same average charges.
+Act: 
+Call compareChargesByAgeGroup().
+Assert: 
+Should return false for “twice as much” claim.
+
