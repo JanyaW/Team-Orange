@@ -174,7 +174,16 @@ public class HelloWorld {
         }
         System.out.println(">>> END OF SECTION 10 <<<\n");
 
-        // ========= 11) FUTURE FEATURES PLACEHOLDER =========
+        // ========= 10) GET INFO SECTION =========
+        System.out.println(">>> SECTION 11: GET INFO STATISTICS <<<");
+        try {
+            GetInfo.main(new String[]{ filename });
+        } catch (Throwable t) {
+            System.err.println("Warning: Could not run GetInfo: " + t.getMessage());
+        }
+        System.out.println(">>> END OF SECTION 11 <<<\n");
+
+        // ========= 12) FUTURE FEATURES PLACEHOLDER =========
         System.out.println(">>> ADDITIONAL SECTIONS COMING SOON <<<");
         System.out.println("   AgeHistogramHorizontal.main(new String[]{ filename });");
         System.out.println("   RegionFairness.main(new String[]{ filename });");
