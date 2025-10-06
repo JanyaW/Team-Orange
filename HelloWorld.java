@@ -166,22 +166,22 @@ public class HelloWorld {
         System.out.println(">>> END OF SECTION 8 <<<\n");
 
         // ========= 10) ODD FEATURES RUNNER =========
-        System.out.println(">>> SECTION 10: ODD FEATURES RUNNER <<<");
+        System.out.println(">>> SECTION 9: ODD FEATURES RUNNER <<<");
         try {
             OddFeaturesRunner.main(new String[]{ filename });
         } catch (Throwable t) {
             System.err.println("Warning: Could not run OddFeaturesRunner: " + t.getMessage());
         }
-        System.out.println(">>> END OF SECTION 10 <<<\n");
+        System.out.println(">>> END OF SECTION 9 <<<\n");
 
-        // ========= 10) GET INFO SECTION =========
-        System.out.println(">>> SECTION 11: GET INFO STATISTICS <<<");
+        // ========= 11) GET INFO SECTION =========
+        System.out.println(">>> SECTION 10: GET INFO STATISTICS <<<");
         try {
             GetInfo.main(new String[]{ filename });
         } catch (Throwable t) {
             System.err.println("Warning: Could not run GetInfo: " + t.getMessage());
         }
-        System.out.println(">>> END OF SECTION 11 <<<\n");
+        System.out.println(">>> END OF SECTION 10 <<<\n");
 
         // ========= 12) FUTURE FEATURES PLACEHOLDER =========
         System.out.println(">>> ADDITIONAL SECTIONS COMING SOON <<<");
