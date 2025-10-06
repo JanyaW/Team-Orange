@@ -9,8 +9,9 @@ public class GetInfo {
     public static void main(String[] args) {
         String filename = args.length > 0 ? args[0] : "insurance.csv";
 
-        List<Double> ages = new ArrayList<>();
         List<Double> bmis = new ArrayList<>();
+        List<Double> ages = new ArrayList<>();
+        // List<Double> bmis = new ArrayList<>();
         List<Double> children = new ArrayList<>();
         List<Double> charges = new ArrayList<>();
 
@@ -22,7 +23,15 @@ public class GetInfo {
             }
 
             String[] headers = headerLine.split(",");
-            int ageIndex = -1, bmiIndex = -1, childrenIndex = -1, chargesIndex = -1;
+            int bmiIndex = -1;
+            for (int i = 0; i < headers.length; i++) {
+                if (headers[i].trim().equalsIgnoreCase("bmi")) {
+                    bmiIndex = i;
+                    break;
+                }
+            }
+            int ageIndex = -1, childrenIndex = -1, chargesIndex = -1;
+            bmiIndex = -1;
             for (int i = 0; i < headers.length; i++) {
                 String col = headers[i].trim().toLowerCase();
                 if (col.equals("age")) ageIndex = i;
@@ -36,6 +45,7 @@ public class GetInfo {
                 if (line.trim().isEmpty()) continue;
                 String[] parts = line.split(",");
                 try {
+                    bmis.add(Double.parseDouble(parts[bmiIndex].trim()));
                     ages.add(Double.parseDouble(parts[ageIndex].trim()));
                     bmis.add(Double.parseDouble(parts[bmiIndex].trim()));
                     children.add(Double.parseDouble(parts[childrenIndex].trim()));
@@ -49,6 +59,11 @@ public class GetInfo {
             e.printStackTrace();
         }
 
+        // ✅ Preview the first 10 BMI values
+        System.out.println("First 10 BMI values:");
+        for (int i = 0; i < Math.min(10, bmis.size()); i++) {
+            System.out.println(bmis.get(i));
+        }
         printStats("Age", ages);
         System.out.println();
         printStats("BMI", bmis);
