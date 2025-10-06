@@ -77,4 +77,4 @@ public class BmiHistogram {
         }
         System.out.println();
     }
-}
+} 
