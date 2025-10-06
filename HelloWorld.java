@@ -138,7 +138,16 @@ public class HelloWorld {
         }
         System.out.println(">>> END OF SECTION 5 <<<\n");
 
-        // ========= 7) FUTURE FEATURES PLACEHOLDER =========
+        // ========= 7) SMOKER AGE SPLIT (Young > Old cutoff?) =========
+        System.out.println(">>> SECTION 6: SMOKER AGE SPLIT (young vs. old) <<<");
+        try {
+            SmokerAgeSplit.main(new String[]{ filename });
+        } catch (Throwable t) {
+            System.err.println("Warning: Could not run SmokerAgeSplit: " + t.getMessage());
+        }
+        System.out.println(">>> END OF SECTION 6 <<<\n");
+
+        // ========= 8) FUTURE FEATURES PLACEHOLDER =========
         System.out.println(">>> ADDITIONAL SECTIONS COMING SOON <<<");
         System.out.println("   AgeHistogramHorizontal.main(new String[]{ filename });");
         System.out.println("   RegionFairness.main(new String[]{ filename });");
