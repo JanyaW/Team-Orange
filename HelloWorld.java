@@ -45,7 +45,7 @@ public class HelloWorld {
             while ((line = br.readLine()) != null) {
                 if (line.trim().isEmpty()) continue;
                 String[] parts = line.split(",");
-                if (parts.length <= bmiIndex) continue;
+                if (parts.length <= bmiIndex) continue; // guard short rows
                 try {
                     bmis.add(Double.parseDouble(parts[bmiIndex].trim()));
                 } catch (Exception e) {
@@ -67,12 +67,12 @@ public class HelloWorld {
         double max = Collections.max(bmis);
         int numBins = 10;
         double range = max - min;
-        double binWidth = (range == 0.0) ? 1.0 : (range / numBins);
+        double binWidth = (range == 0.0) ? 1.0 : (range / numBins); // avoid divide-by-zero
 
         int[] counts = new int[numBins];
         for (double bmi : bmis) {
             int bin = (int) ((bmi - min) / binWidth);
-            if (bin >= numBins) bin = numBins - 1;
+            if (bin >= numBins) bin = numBins - 1; // include max value
             if (bin < 0) bin = 0;
             counts[bin]++;
         }
@@ -112,7 +112,17 @@ public class HelloWorld {
         }
         System.out.println(">>> END OF SECTION 2 <<<\n");
 
-        // ========= 4) FUTURE FEATURES PLACEHOLDER =========
+        // ========= 4) CHARGES PER CHILD SECTION =========
+        System.out.println(">>> SECTION 3: CHARGES PER CHILD <<<");
+        try {
+            // Calls the merged file ChargesPerChild.java
+            ChargesPerChild.main(new String[]{ filename });
+        } catch (Throwable t) {
+            System.err.println("Warning: Could not run ChargesPerChild: " + t.getMessage());
+        }
+        System.out.println(">>> END OF SECTION 3 <<<\n");
+
+        // ========= 5) FUTURE FEATURES PLACEHOLDER =========
         System.out.println(">>> ADDITIONAL SECTIONS COMING SOON <<<");
         System.out.println("For future merged files, add calls like:");
         System.out.println("   AgeHistogramHorizontal.main(new String[]{ filename });");
