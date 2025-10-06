@@ -31,3 +31,11 @@ Act:
 Call size() and getRecords()
 Assert:
 Should reflect duplicates unless explicitly filtered
+
+Test Sorting Regions with Tied Averages
+Arrange:
+Create regions with identical average charges.
+Act: 
+Sort regions.
+Assert: 
+Should maintain stable sort or document tie-breaking.
