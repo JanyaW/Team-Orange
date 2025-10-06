@@ -7,7 +7,6 @@ import java.io.IOException;
 
 public class HelloWorld {
     public static void main(String[] args) {
-        // Use provided filename arg if present; otherwise default to insurance.csv
         String filename = args.length > 0 ? args[0] : "insurance.csv";
 
         // ========= 1) START OF DRIVER =========
