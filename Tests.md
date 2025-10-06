@@ -78,3 +78,10 @@ Call checkFairnessByRegion().
 Assert: 
 Should return true.
 
+Regression on Categorical Data (Region)
+Arrange: 
+Encode regions numerically (e.g., north = 0, south = 1).
+Act: 
+Run regression on charges vs. region.
+Assert: 
+Should produce meaningful r-value.
