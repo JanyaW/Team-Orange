@@ -8,3 +8,12 @@ Assert:
 Should be able to handle with no crash or divide-by-zero error.  Return 0 or Skip record
 
 
+Regression Test with Perfect Linear Relationship
+Arrange:
+Create records where charges = 2 * BMI
+Act:
+Run regression and compute Pearson r
+Assert:
+r should be approximately 1.0
+
+
