@@ -29,9 +29,10 @@ public class GetInfo {
                     bmiIndex = i;
                     break;
                 }
+            }
             int ageIndex = -1, childrenIndex = -1, chargesIndex = -1;
             bmiIndex = -1;
-            for (i = 0; i < headers.length; i++) {
+            for (int i = 0; i < headers.length; i++) {
                 String col = headers[i].trim().toLowerCase();
                 if (col.equals("age")) ageIndex = i;
                 else if (col.equals("bmi")) bmiIndex = i;
