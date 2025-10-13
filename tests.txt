@@ -276,6 +276,44 @@ Act: Calculate the charge range for each BMI group and compare them.
 Assert: All groups have the same range (1000). The statement is false, because the 30–45 group is not greater.
 
 
+Problem 10 Test: Is it true that having more children means lower charge per child?
+
+Test 1: More children = lower charge per child (true)
+Arrange:
+Dataset of families:
+Family A: 1 child, total charges = 4000 → charge per child = 4000
+Family B: 2 children, total charges = 6000 → charge per child = 3000
+Family C: 3 children, total charges = 7500 → charge per child = 2500
+Act: Calculate charge-per-child for each family and compare trend.
+Assert: As number of children increases, charge per child decreases (4000 → 3000 → 2500).
+Output:
+“True: Families with more children pay less per child on average.”
+
+Test 2: More children = higher charge per child (false)
+Arrange:
+Family A: 1 child, total = 2000 → 2000 per child
+Family B: 3 children, total = 9000 → 3000 per child
+Act: Compare trend.
+Assert: 2000 < 3000, so higher number of children corresponds to higher charge per child.
+Output:
+“False: More children do not result in lower charge per child.”
+
+Test 3: Equal charge per child (false)
+Arrange:
+Family A: 1 child, 3000 → 3000 per child
+Family B: 2 children, 6000 → 3000 per child
+Act: Compare per-child charges.
+Assert: No difference across groups → statement false.
+Output:
+“False: Charge per child does not decrease with more children.”
+
+Test 4: Missing or zero children (edge case)
+Arrange: One record has 0 children (to test divide-by-zero guard).
+Act: Skip or handle zero properly.
+Assert: Program should ignore division by zero and print:
+“Invalid or zero-child record skipped.”
+
+
 Problem 11 Test: Do smokers have higher charges and a wider range than non-smokers?
 
 Test 1: Smokers have both higher mean and wider range (hypothesis true)
