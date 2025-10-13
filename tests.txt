@@ -87,6 +87,7 @@ Assert: The printed histogram should be exactly:
 11: *
 
 Problem 4 Test: Display a vertical text-based histogram of BMI
+
 Test 1: Basic BMI distribution
 Arrange: Dataset of BMI values [20, 25, 25, 30]. Use ‘*’ as the bar character.
 Act: Generate a vertical histogram of BMI frequencies.
@@ -134,6 +135,41 @@ Act: Count the total number of clients whose ages are greater than 0 and less th
 
 Assert: The total number of records for children is: 3.
 
+
+Problem 6 Test: Display a vertical text-based histogram showing the number of smokers and non-smokers
+
+Test 1: Balanced dataset
+Arrange: Dataset with 4 clients — 2 smokers, 2 non-smokers.
+Act: Count the number of smokers and non-smokers; display as a vertical histogram with one column per category.
+Assert:
+Expected printed histogram:
+ *   * 
+ *   * 
+Smk Non
+
+Test 2: More smokers than non-smokers
+Arrange: Dataset with 5 clients — 4 smokers, 1 non-smoker.
+Act: Print histogram.
+Assert:
+ *     
+ *     
+ *   * 
+ *   * 
+Smk Non
+
+Test 3: All non-smokers
+Arrange: Dataset of 3 non-smokers, 0 smokers.
+Act: Generate histogram.
+Assert:
+ * 
+ * 
+ * 
+Smk Non
+
+Test 4: Empty dataset
+Arrange: No records available.
+Act: Attempt to print histogram.
+Assert: Program outputs “No data to display.”
 
 Problem 7 Test: Determine if the dataset is “fair”
 
