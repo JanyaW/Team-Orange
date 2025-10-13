@@ -17,6 +17,30 @@ Act: Attempt to store the first N records from the dataset into the custom objec
 Assert: The custom object should contain all 4 available records (not 10).
 
 
+Problem 2 Test: Calculate count, mean, std, min, percentiles, and max of attributes
+
+Test 1: Normal dataset
+Arrange: Dataset with ages [20, 30, 40, 50], BMI [25, 30, 35, 40], children [0, 1, 2, 3], charges [1000, 2000, 3000, 4000].
+Act: Calculate count, mean, std, min, 25%, 50%, 75%, and max for each attribute.
+Assert: 
+- count = 4 for each attribute
+- mean(age) = 35
+- std(age) ≈ 12.9
+- min(age) = 20, max(age) = 50
+- percentiles(age): 25%=27.5, 50%=35, 75%=42.5
+(similar checks for other attributes)
+
+Test 2: Dataset with one record
+Arrange: Dataset with one record: age=25, bmi=30, children=1, charges=2000.
+Act: Compute all stats.
+Assert: std = 0 for all, min = max = mean = value itself, all percentiles = same value.
+
+Test 3: Empty dataset
+Arrange: Dataset is empty.
+Act: Attempt to calculate statistics.
+Assert: Output should display “No data available” or equivalent.
+
+
 
 Problem 3 Test: Display a horizontal text-based histogram of the ages
 
