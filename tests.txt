@@ -549,6 +549,47 @@ Act: Calculate averages and sort.
 Assert: Since all averages are equal, any order of the 4 regions is acceptable.
 
 
+Problem 16 Test: Young people smoke more than older people — At what average age is this true?
+
+Test 1: Young group clearly smokes more (true)
+Arrange:
+Dataset:
+Ages 18–29 (young): 4 smokers
+Ages 50+ (old): 1 smoker
+Act: Count smokers by group; compute average smoker age.
+Assert:
+Young group has more smokers → statement true.
+Average age when this holds = (18 + 22 + 25 + 29) / 4 = 23.5.
+Output:
+“True: Young people smoke more than older people, at an average age of 23.5.”
+
+Test 2: Older group smokes more (false)
+Arrange:
+Dataset:
+Young: 2 smokers
+Old: 5 smokers
+Act: Count totals.
+Assert: Old > young → false.
+Output:
+“False: Older people smoke more than younger people.”
+
+Test 3: Equal smoker counts (false)
+Arrange:
+Dataset:
+Young: 3 smokers
+Old: 3 smokers
+Act: Compare counts.
+Assert: Counts equal → statement false.
+Output:
+“False: Young and old smoke at equal rates.”
+
+Test 4: No smokers (edge case)
+Arrange: Dataset contains only non-smokers.
+Act: Attempt comparison.
+Assert: Program prints:
+“No smoker data available for comparison.”
+
+
 Problem 17 Test: Do Southerners smoke more than Northerners, and at what average age?
 
 Test 1: Southerners smoke more at a younger average age
