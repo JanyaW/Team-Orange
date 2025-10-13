@@ -640,6 +640,43 @@ Assert: Proportions are equal, so Southerners do not smoke more. Output:
 The statement is false: Southerners do not smoke more than Northerners.
 
 
+Problem 18 Test: Do Southerners average higher BMI than Northerners?
+
+Test 1: Southerners have higher average BMI (true)
+Arrange:
+Dataset of clients:
+South (Southeast + Southwest): BMIs = [32, 30, 33] → mean = 31.7
+North (Northeast + Northwest): BMIs = [25, 26, 27] → mean = 26.0
+Act: Compute average BMI for South and North, compare.
+Assert: 31.7 > 26.0 → true.
+Output:
+“True: Southerners have a higher average BMI than Northerners.”
+
+Test 2: Northerners have higher average BMI (false)
+Arrange:
+South: [25, 26, 27] → mean = 26.0
+North: [30, 31, 32] → mean = 31.0
+Act: Compare 26.0 vs 31.0.
+Assert: South < North → false.
+Output:
+“False: Southerners do not have a higher average BMI than Northerners.”
+
+Test 3: Equal averages (false)
+Arrange:
+South: [28, 30] → mean = 29
+North: [29, 29] → mean = 29
+Act: Compare 29 vs 29.
+Assert: Equal → false.
+Output:
+“False: Southerners and Northerners have equal average BMI.”
+
+Test 4: Missing region data (edge case)
+Arrange: Dataset missing one or both regions.
+Act: Attempt calculation.
+Assert: Program prints:
+“Insufficient data for regional BMI comparison.”
+
+
 Problem 19 Test: Do Southerners average more children than Northerners, and at what average age?
 
 Test 1: Southerners average more children (true)
