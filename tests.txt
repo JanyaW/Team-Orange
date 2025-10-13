@@ -731,6 +731,48 @@ Assert: The output should be:
 The statement is false: Southerners do not average more children than Northerners.
 
 
+Problem 20 Test: Simple linear regression of charges vs BMI
+
+Test 1: Perfect positive correlation (r = 1.0)
+Arrange:
+Dataset of (BMI, charge):
+(20, 2000), (25, 3000), (30, 4000), (35, 5000)
+Act: Compute linear regression line and correlation coefficient.
+Expected regression line: y = 0 + 100 × BMI
+(r = 1.0)
+Apply to 11 new BMI values (e.g., 36–46).
+Assert: Output should include:
+Regression equation: y = 0 + 100 × BMI
+Pearson r = 1.0
+Predicted values for new BMI inputs (x,y).
+
+Test 2: No correlation (r ≈ 0)
+Arrange:
+(BMI, charge): (20, 4000), (25, 4100), (30, 3950), (35, 4050)
+Act: Regression slope ≈ 0, r ≈ 0.
+Assert:
+Regression equation: y ≈ constant
+Pearson r ≈ 0
+Predicted charges nearly constant regardless of BMI.
+
+Test 3: Negative correlation (r ≈ -1.0)
+Arrange:
+(BMI, charge): (20, 8000), (25, 6000), (30, 4000), (35, 2000)
+Act: Compute regression → y ≈ 10000 - 200 × BMI.
+r ≈ -1.0
+Assert:
+Regression equation: y = 10000 - 200 × BMI
+Pearson r = -1.0
+Predicted charges decrease as BMI increases.
+
+Test 4: Constant BMI values (edge case)
+Arrange:
+All BMIs = [25, 25, 25] → no variance.
+Act: Regression invalid.
+Assert: Program prints:
+“Cannot compute regression: constant BMI values.”
+
+
 Problem 21 Test: Regression of charges vs. number of children
 
 Test 1: Normal dataset with positive correlation
