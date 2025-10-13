@@ -442,6 +442,41 @@ Assert: Since 27 = 27, the statement is false. Output should be:
 The statement is false: smokers do not average lower BMI than non-smokers.
 
 
+Problem 14 Test: A histogram is a distribution — What is the age distribution for smokers?
+
+Test 1: Multiple smokers with different ages (typical case)
+Arrange:
+Dataset of smokers with ages: [20, 20, 25, 30, 30, 30, 40]
+Act: Count how many smokers fall into each unique age and build a text-based histogram (using * per person).
+Assert:
+Expected printed histogram:
+20: **
+25: *
+30: ***
+40: *
+
+Test 2: All smokers have the same age
+Arrange:
+Dataset of smokers’ ages: [35, 35, 35, 35]
+Act: Build histogram.
+Assert:
+35: ****
+
+Test 3: Non-smokers only (edge case)
+Arrange: Dataset has no smokers.
+Act: Attempt to build histogram.
+Assert: Program prints:
+“No smoker data to display.”
+
+Test 4: Mixed dataset (filter required)
+Arrange: Dataset:
+(smoker, age) → (Y, 25), (N, 25), (Y, 30), (N, 40)
+Act: Filter only smokers and generate histogram.
+Assert:
+25: *
+30: *
+
+
 Problem 15 Test: Sort 4 regions by average charges in descending order
 
 Test 1: Distinct averages
