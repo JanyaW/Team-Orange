@@ -206,6 +206,31 @@ Act: Attempt to calculate fairness.
 
 Assert: With no data available, fairness cannot be determined. The program should either report “No data available” or treat the dataset as not fair.
 
+Problem 8 Test: Compare average charges of people ≥ 50 vs ≤ 20
+
+Test 1: Older adults clearly pay twice as much (true)
+Arrange:
+Ages ≥ 50: charges = [4000, 6000] → mean = 5000
+Ages ≤ 20: charges = [2000, 1000] → mean = 1500
+Act: Compute group means and compare if mean(50+) ≥ 2 × mean(≤20).
+Assert: 5000 ≥ 2×1500 → true.
+Program should print:
+“True: people 50+ average at least twice the charges of those ≤ 20.”
+
+Test 2: Older adults less than double (false)
+Arrange:
+Ages ≥ 50: charges = [3000, 3500] → mean = 3250
+Ages ≤ 20: charges = [2000, 2500] → mean = 2250
+Act: Compare 3250 vs 2×2250 = 4500.
+Assert: 3250 < 4500 → false.
+Output:
+“False: people 50+ do not average twice the charges of those ≤ 20.”
+
+Test 3: One group missing (edge case)
+Arrange: Dataset contains only older adults (no one ≤ 20).
+Act: Attempt comparison.
+Assert: Program prints “Insufficient data for one or both age groups.”
+
 Problem 9 Test: Compare charge ranges for BMI groups
 
 Test 1: BMI 30–45 range is clearly larger
