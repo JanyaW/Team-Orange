@@ -817,3 +817,52 @@ Assert: The output should be:
 Regression equation: y = 8000 - 2000x  
 Pearson r = -1.0  
 Predicted values for 22 charges: [(x1, y1), (x2, y2), …]
+
+
+Problem 22 Test: Simple linear regression of charges vs region
+
+Test 1: Distinct regional averages — clear trend (positive r)
+Arrange:
+Dataset with average charges per region converted to numeric region codes:
+Northeast (1): 3000  
+Northwest (2): 4000  
+Southeast (3): 5000  
+Southwest (4): 6000
+Act:
+Compute linear regression of charges (y) vs region (x).
+Expected regression line: y ≈ 2000 + 1000 × region
+Pearson r ≈ 1.0 (perfect positive correlation).
+Apply the regression to 33 new region-code inputs (for prediction).
+Assert:
+Output should include:
+Regression equation: y = 2000 + 1000 × region
+Pearson r = 1.0
+Predicted values for 33 new region codes.
+
+Test 2: No relationship between region and charges (r ≈ 0)
+Arrange:
+Regions 1–4 with charges: [3000, 3100, 2950, 3050]
+Act:
+Compute regression; slope ≈ 0, r ≈ 0.
+Assert:
+Regression equation: y ≈ constant
+Pearson r ≈ 0
+Predicted charges nearly flat across regions.
+
+Test 3: Negative correlation (r ≈ –1.0)
+Arrange:
+Regions 1–4 with charges: [7000, 5000, 3000, 1000]
+Act:
+Compute regression line ≈ y = 8000 – 2000 × region.
+r ≈ –1.0.
+Assert:
+Regression equation: y = 8000 – 2000 × region
+Pearson r = –1.0
+Predicted charges decrease as region code increases.
+
+Test 4: Single region in dataset (edge case)
+Arrange:
+All records from one region (e.g., “Southeast” only).
+Act: Attempt regression.
+Assert: Program prints:
+“Cannot compute regression: only one region present.”
