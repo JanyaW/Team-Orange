@@ -86,6 +86,35 @@ Assert: The printed histogram should be exactly:
 10: **
 11: *
 
+Problem 4 Test: Display a vertical text-based histogram of BMI
+Test 1: Basic BMI distribution
+Arrange: Dataset of BMI values [20, 25, 25, 30]. Use ‘*’ as the bar character.
+Act: Generate a vertical histogram of BMI frequencies.
+Assert:
+Expected printed histogram (one column per BMI):
+   *   
+ * *   
+20 25 30
+
+Test 2: Dataset with single unique BMI
+Arrange: BMI values [22, 22, 22].
+Act: Print histogram.
+Assert:
+
+*
+*
+*
+22
+Test 3: Dataset with no BMI data
+Arrange: Dataset is empty.
+Act: Attempt to generate histogram.
+Assert: Program prints “No data to display.”
+
+Test 4: Dataset with invalid/negative BMI values
+Arrange: BMI values [–5, 0, 25, 30]. Ignore non-positive BMIs.
+Act: Generate histogram only for valid values.
+Assert: Output shows columns for 25 and 30 only.
+
 
 Problem 5 Test: Total number of records for each number of children
 
