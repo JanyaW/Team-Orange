@@ -363,6 +363,43 @@ Act: Recalculate.
 Assert (alternate): Smoker range > non-smoker range (8000 > 0) but smoker mean < non-smoker mean (5000 < 6000). The hypothesis is false.
 
 
+Problem 12 Test: Are smokers in the South charged at least 25% more than other smokers?
+
+Test 1: Southerners 25% higher (true)
+Arrange:
+Dataset of smokers grouped by region:
+South (Southeast, Southwest): charges = [10000, 9000] → mean = 9500
+Non-south (Northeast, Northwest): charges = [7000, 7500] → mean = 7250
+Act: Compare means: 9500 vs 7250.
+Compute percentage increase = ((9500 - 7250) / 7250) × 100 ≈ 31%.
+Assert: 31% ≥ 25% → true.
+Output:
+“True: Southern smokers are charged at least 25% more than other smokers.”
+
+Test 2: Southerners less than 25% higher (false)
+Arrange:
+South: [8000, 8200] → mean = 8100
+Non-south: [7000, 7500] → mean = 7250
+Act: ((8100 - 7250)/7250) × 100 = 11.7%.
+Assert: < 25% → false.
+Output:
+“False: Southern smokers are not charged 25% more.”
+
+Test 3: Southerners lower (false)
+Arrange:
+South: [6000, 6500] → mean = 6250
+Non-south: [7000, 8000] → mean = 7500
+Act: 6250 < 7500.
+Assert: South smokers pay less, not more.
+Output:
+“False: Southern smokers have lower average charges than other smokers.”
+
+Test 4: No southern smokers in dataset (edge case)
+Arrange: All smokers are from northern regions.
+Act: Attempt comparison.
+Assert: Program should print:
+“Insufficient southern smoker data.”
+
 Problem 13 Test: Compare average BMI of smokers vs. non-smokers
 
 Test 1: Smokers have lower average BMI (statement true)
