@@ -17,6 +17,30 @@ Act: Attempt to store the first N records from the dataset into the custom objec
 Assert: The custom object should contain all 4 available records (not 10).
 
 
+Problem 2 Test: Calculate count, mean, std, min, percentiles, and max of attributes
+
+Test 1: Normal dataset
+Arrange: Dataset with ages [20, 30, 40, 50], BMI [25, 30, 35, 40], children [0, 1, 2, 3], charges [1000, 2000, 3000, 4000].
+Act: Calculate count, mean, std, min, 25%, 50%, 75%, and max for each attribute.
+Assert: 
+- count = 4 for each attribute
+- mean(age) = 35
+- std(age) ≈ 12.9
+- min(age) = 20, max(age) = 50
+- percentiles(age): 25%=27.5, 50%=35, 75%=42.5
+(similar checks for other attributes)
+
+Test 2: Dataset with one record
+Arrange: Dataset with one record: age=25, bmi=30, children=1, charges=2000.
+Act: Compute all stats.
+Assert: std = 0 for all, min = max = mean = value itself, all percentiles = same value.
+
+Test 3: Empty dataset
+Arrange: Dataset is empty.
+Act: Attempt to calculate statistics.
+Assert: Output should display “No data available” or equivalent.
+
+
 
 Problem 3 Test: Display a horizontal text-based histogram of the ages
 
@@ -62,6 +86,36 @@ Assert: The printed histogram should be exactly:
 10: **
 11: *
 
+Problem 4 Test: Display a vertical text-based histogram of BMI
+
+Test 1: Basic BMI distribution
+Arrange: Dataset of BMI values [20, 25, 25, 30]. Use ‘*’ as the bar character.
+Act: Generate a vertical histogram of BMI frequencies.
+Assert:
+Expected printed histogram (one column per BMI):
+   *   
+ * *   
+20 25 30
+
+Test 2: Dataset with single unique BMI
+Arrange: BMI values [22, 22, 22].
+Act: Print histogram.
+Assert:
+
+*
+*
+*
+22
+Test 3: Dataset with no BMI data
+Arrange: Dataset is empty.
+Act: Attempt to generate histogram.
+Assert: Program prints “No data to display.”
+
+Test 4: Dataset with invalid/negative BMI values
+Arrange: BMI values [–5, 0, 25, 30]. Ignore non-positive BMIs.
+Act: Generate histogram only for valid values.
+Assert: Output shows columns for 25 and 30 only.
+
 
 Problem 5 Test: Total number of records for each number of children
 
@@ -81,6 +135,41 @@ Act: Count the total number of clients whose ages are greater than 0 and less th
 
 Assert: The total number of records for children is: 3.
 
+
+Problem 6 Test: Display a vertical text-based histogram showing the number of smokers and non-smokers
+
+Test 1: Balanced dataset
+Arrange: Dataset with 4 clients — 2 smokers, 2 non-smokers.
+Act: Count the number of smokers and non-smokers; display as a vertical histogram with one column per category.
+Assert:
+Expected printed histogram:
+ *   * 
+ *   * 
+Smk Non
+
+Test 2: More smokers than non-smokers
+Arrange: Dataset with 5 clients — 4 smokers, 1 non-smoker.
+Act: Print histogram.
+Assert:
+ *     
+ *     
+ *   * 
+ *   * 
+Smk Non
+
+Test 3: All non-smokers
+Arrange: Dataset of 3 non-smokers, 0 smokers.
+Act: Generate histogram.
+Assert:
+ * 
+ * 
+ * 
+Smk Non
+
+Test 4: Empty dataset
+Arrange: No records available.
+Act: Attempt to print histogram.
+Assert: Program outputs “No data to display.”
 
 Problem 7 Test: Determine if the dataset is “fair”
 
@@ -116,6 +205,31 @@ Arrange: Identify the dataset with 0 records across all regions.
 Act: Attempt to calculate fairness.
 
 Assert: With no data available, fairness cannot be determined. The program should either report “No data available” or treat the dataset as not fair.
+
+Problem 8 Test: Compare average charges of people ≥ 50 vs ≤ 20
+
+Test 1: Older adults clearly pay twice as much (true)
+Arrange:
+Ages ≥ 50: charges = [4000, 6000] → mean = 5000
+Ages ≤ 20: charges = [2000, 1000] → mean = 1500
+Act: Compute group means and compare if mean(50+) ≥ 2 × mean(≤20).
+Assert: 5000 ≥ 2×1500 → true.
+Program should print:
+“True: people 50+ average at least twice the charges of those ≤ 20.”
+
+Test 2: Older adults less than double (false)
+Arrange:
+Ages ≥ 50: charges = [3000, 3500] → mean = 3250
+Ages ≤ 20: charges = [2000, 2500] → mean = 2250
+Act: Compare 3250 vs 2×2250 = 4500.
+Assert: 3250 < 4500 → false.
+Output:
+“False: people 50+ do not average twice the charges of those ≤ 20.”
+
+Test 3: One group missing (edge case)
+Arrange: Dataset contains only older adults (no one ≤ 20).
+Act: Attempt comparison.
+Assert: Program prints “Insufficient data for one or both age groups.”
 
 Problem 9 Test: Compare charge ranges for BMI groups
 
@@ -160,6 +274,44 @@ Group 3 (>45): charges [5000, 6000] → range = 1000
 Act: Calculate the charge range for each BMI group and compare them.
 
 Assert: All groups have the same range (1000). The statement is false, because the 30–45 group is not greater.
+
+
+Problem 10 Test: Is it true that having more children means lower charge per child?
+
+Test 1: More children = lower charge per child (true)
+Arrange:
+Dataset of families:
+Family A: 1 child, total charges = 4000 → charge per child = 4000
+Family B: 2 children, total charges = 6000 → charge per child = 3000
+Family C: 3 children, total charges = 7500 → charge per child = 2500
+Act: Calculate charge-per-child for each family and compare trend.
+Assert: As number of children increases, charge per child decreases (4000 → 3000 → 2500).
+Output:
+“True: Families with more children pay less per child on average.”
+
+Test 2: More children = higher charge per child (false)
+Arrange:
+Family A: 1 child, total = 2000 → 2000 per child
+Family B: 3 children, total = 9000 → 3000 per child
+Act: Compare trend.
+Assert: 2000 < 3000, so higher number of children corresponds to higher charge per child.
+Output:
+“False: More children do not result in lower charge per child.”
+
+Test 3: Equal charge per child (false)
+Arrange:
+Family A: 1 child, 3000 → 3000 per child
+Family B: 2 children, 6000 → 3000 per child
+Act: Compare per-child charges.
+Assert: No difference across groups → statement false.
+Output:
+“False: Charge per child does not decrease with more children.”
+
+Test 4: Missing or zero children (edge case)
+Arrange: One record has 0 children (to test divide-by-zero guard).
+Act: Skip or handle zero properly.
+Assert: Program should ignore division by zero and print:
+“Invalid or zero-child record skipped.”
 
 
 Problem 11 Test: Do smokers have higher charges and a wider range than non-smokers?
@@ -211,6 +363,43 @@ Act: Recalculate.
 Assert (alternate): Smoker range > non-smoker range (8000 > 0) but smoker mean < non-smoker mean (5000 < 6000). The hypothesis is false.
 
 
+Problem 12 Test: Are smokers in the South charged at least 25% more than other smokers?
+
+Test 1: Southerners 25% higher (true)
+Arrange:
+Dataset of smokers grouped by region:
+South (Southeast, Southwest): charges = [10000, 9000] → mean = 9500
+Non-south (Northeast, Northwest): charges = [7000, 7500] → mean = 7250
+Act: Compare means: 9500 vs 7250.
+Compute percentage increase = ((9500 - 7250) / 7250) × 100 ≈ 31%.
+Assert: 31% ≥ 25% → true.
+Output:
+“True: Southern smokers are charged at least 25% more than other smokers.”
+
+Test 2: Southerners less than 25% higher (false)
+Arrange:
+South: [8000, 8200] → mean = 8100
+Non-south: [7000, 7500] → mean = 7250
+Act: ((8100 - 7250)/7250) × 100 = 11.7%.
+Assert: < 25% → false.
+Output:
+“False: Southern smokers are not charged 25% more.”
+
+Test 3: Southerners lower (false)
+Arrange:
+South: [6000, 6500] → mean = 6250
+Non-south: [7000, 8000] → mean = 7500
+Act: 6250 < 7500.
+Assert: South smokers pay less, not more.
+Output:
+“False: Southern smokers have lower average charges than other smokers.”
+
+Test 4: No southern smokers in dataset (edge case)
+Arrange: All smokers are from northern regions.
+Act: Attempt comparison.
+Assert: Program should print:
+“Insufficient southern smoker data.”
+
 Problem 13 Test: Compare average BMI of smokers vs. non-smokers
 
 Test 1: Smokers have lower average BMI (statement true)
@@ -251,6 +440,41 @@ Act: Calculate the mean BMI for smokers and non-smokers.
 
 Assert: Since 27 = 27, the statement is false. Output should be:
 The statement is false: smokers do not average lower BMI than non-smokers.
+
+
+Problem 14 Test: A histogram is a distribution — What is the age distribution for smokers?
+
+Test 1: Multiple smokers with different ages (typical case)
+Arrange:
+Dataset of smokers with ages: [20, 20, 25, 30, 30, 30, 40]
+Act: Count how many smokers fall into each unique age and build a text-based histogram (using * per person).
+Assert:
+Expected printed histogram:
+20: **
+25: *
+30: ***
+40: *
+
+Test 2: All smokers have the same age
+Arrange:
+Dataset of smokers’ ages: [35, 35, 35, 35]
+Act: Build histogram.
+Assert:
+35: ****
+
+Test 3: Non-smokers only (edge case)
+Arrange: Dataset has no smokers.
+Act: Attempt to build histogram.
+Assert: Program prints:
+“No smoker data to display.”
+
+Test 4: Mixed dataset (filter required)
+Arrange: Dataset:
+(smoker, age) → (Y, 25), (N, 25), (Y, 30), (N, 40)
+Act: Filter only smokers and generate histogram.
+Assert:
+25: *
+30: *
 
 
 Problem 15 Test: Sort 4 regions by average charges in descending order
@@ -325,6 +549,47 @@ Act: Calculate averages and sort.
 Assert: Since all averages are equal, any order of the 4 regions is acceptable.
 
 
+Problem 16 Test: Young people smoke more than older people — At what average age is this true?
+
+Test 1: Young group clearly smokes more (true)
+Arrange:
+Dataset:
+Ages 18–29 (young): 4 smokers
+Ages 50+ (old): 1 smoker
+Act: Count smokers by group; compute average smoker age.
+Assert:
+Young group has more smokers → statement true.
+Average age when this holds = (18 + 22 + 25 + 29) / 4 = 23.5.
+Output:
+“True: Young people smoke more than older people, at an average age of 23.5.”
+
+Test 2: Older group smokes more (false)
+Arrange:
+Dataset:
+Young: 2 smokers
+Old: 5 smokers
+Act: Count totals.
+Assert: Old > young → false.
+Output:
+“False: Older people smoke more than younger people.”
+
+Test 3: Equal smoker counts (false)
+Arrange:
+Dataset:
+Young: 3 smokers
+Old: 3 smokers
+Act: Compare counts.
+Assert: Counts equal → statement false.
+Output:
+“False: Young and old smoke at equal rates.”
+
+Test 4: No smokers (edge case)
+Arrange: Dataset contains only non-smokers.
+Act: Attempt comparison.
+Assert: Program prints:
+“No smoker data available for comparison.”
+
+
 Problem 17 Test: Do Southerners smoke more than Northerners, and at what average age?
 
 Test 1: Southerners smoke more at a younger average age
@@ -373,6 +638,43 @@ Act: Compare totals (South = 2, North = 2).
 
 Assert: Proportions are equal, so Southerners do not smoke more. Output:
 The statement is false: Southerners do not smoke more than Northerners.
+
+
+Problem 18 Test: Do Southerners average higher BMI than Northerners?
+
+Test 1: Southerners have higher average BMI (true)
+Arrange:
+Dataset of clients:
+South (Southeast + Southwest): BMIs = [32, 30, 33] → mean = 31.7
+North (Northeast + Northwest): BMIs = [25, 26, 27] → mean = 26.0
+Act: Compute average BMI for South and North, compare.
+Assert: 31.7 > 26.0 → true.
+Output:
+“True: Southerners have a higher average BMI than Northerners.”
+
+Test 2: Northerners have higher average BMI (false)
+Arrange:
+South: [25, 26, 27] → mean = 26.0
+North: [30, 31, 32] → mean = 31.0
+Act: Compare 26.0 vs 31.0.
+Assert: South < North → false.
+Output:
+“False: Southerners do not have a higher average BMI than Northerners.”
+
+Test 3: Equal averages (false)
+Arrange:
+South: [28, 30] → mean = 29
+North: [29, 29] → mean = 29
+Act: Compare 29 vs 29.
+Assert: Equal → false.
+Output:
+“False: Southerners and Northerners have equal average BMI.”
+
+Test 4: Missing region data (edge case)
+Arrange: Dataset missing one or both regions.
+Act: Attempt calculation.
+Assert: Program prints:
+“Insufficient data for regional BMI comparison.”
 
 
 Problem 19 Test: Do Southerners average more children than Northerners, and at what average age?
@@ -429,6 +731,48 @@ Assert: The output should be:
 The statement is false: Southerners do not average more children than Northerners.
 
 
+Problem 20 Test: Simple linear regression of charges vs BMI
+
+Test 1: Perfect positive correlation (r = 1.0)
+Arrange:
+Dataset of (BMI, charge):
+(20, 2000), (25, 3000), (30, 4000), (35, 5000)
+Act: Compute linear regression line and correlation coefficient.
+Expected regression line: y = 0 + 100 × BMI
+(r = 1.0)
+Apply to 11 new BMI values (e.g., 36–46).
+Assert: Output should include:
+Regression equation: y = 0 + 100 × BMI
+Pearson r = 1.0
+Predicted values for new BMI inputs (x,y).
+
+Test 2: No correlation (r ≈ 0)
+Arrange:
+(BMI, charge): (20, 4000), (25, 4100), (30, 3950), (35, 4050)
+Act: Regression slope ≈ 0, r ≈ 0.
+Assert:
+Regression equation: y ≈ constant
+Pearson r ≈ 0
+Predicted charges nearly constant regardless of BMI.
+
+Test 3: Negative correlation (r ≈ -1.0)
+Arrange:
+(BMI, charge): (20, 8000), (25, 6000), (30, 4000), (35, 2000)
+Act: Compute regression → y ≈ 10000 - 200 × BMI.
+r ≈ -1.0
+Assert:
+Regression equation: y = 10000 - 200 × BMI
+Pearson r = -1.0
+Predicted charges decrease as BMI increases.
+
+Test 4: Constant BMI values (edge case)
+Arrange:
+All BMIs = [25, 25, 25] → no variance.
+Act: Regression invalid.
+Assert: Program prints:
+“Cannot compute regression: constant BMI values.”
+
+
 Problem 21 Test: Regression of charges vs. number of children
 
 Test 1: Normal dataset with positive correlation
@@ -473,3 +817,52 @@ Assert: The output should be:
 Regression equation: y = 8000 - 2000x  
 Pearson r = -1.0  
 Predicted values for 22 charges: [(x1, y1), (x2, y2), …]
+
+
+Problem 22 Test: Simple linear regression of charges vs region
+
+Test 1: Distinct regional averages — clear trend (positive r)
+Arrange:
+Dataset with average charges per region converted to numeric region codes:
+Northeast (1): 3000  
+Northwest (2): 4000  
+Southeast (3): 5000  
+Southwest (4): 6000
+Act:
+Compute linear regression of charges (y) vs region (x).
+Expected regression line: y ≈ 2000 + 1000 × region
+Pearson r ≈ 1.0 (perfect positive correlation).
+Apply the regression to 33 new region-code inputs (for prediction).
+Assert:
+Output should include:
+Regression equation: y = 2000 + 1000 × region
+Pearson r = 1.0
+Predicted values for 33 new region codes.
+
+Test 2: No relationship between region and charges (r ≈ 0)
+Arrange:
+Regions 1–4 with charges: [3000, 3100, 2950, 3050]
+Act:
+Compute regression; slope ≈ 0, r ≈ 0.
+Assert:
+Regression equation: y ≈ constant
+Pearson r ≈ 0
+Predicted charges nearly flat across regions.
+
+Test 3: Negative correlation (r ≈ –1.0)
+Arrange:
+Regions 1–4 with charges: [7000, 5000, 3000, 1000]
+Act:
+Compute regression line ≈ y = 8000 – 2000 × region.
+r ≈ –1.0.
+Assert:
+Regression equation: y = 8000 – 2000 × region
+Pearson r = –1.0
+Predicted charges decrease as region code increases.
+
+Test 4: Single region in dataset (edge case)
+Arrange:
+All records from one region (e.g., “Southeast” only).
+Act: Attempt regression.
+Assert: Program prints:
+“Cannot compute regression: only one region present.”
